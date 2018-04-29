@@ -1,4 +1,3 @@
-I host a site here.
-Here are the files.
+本人的gitpage
 
-The site is [https://berzerk0.github.io/GitPage/](https://berzerk0.github.io/GitPage/)
+从berzerk0的gitpage修改而来，采用slate

@@ -1,23 +1,19 @@
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
+[首页](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \|
 
-## berzerk0's About Me
+## 关于狷墨居主人
 
-![hi](../images/avatar.png)
+<!--![hi](../images/avatar.png)-->
 
-Hello!
+各位可以叫我韩狷墨，一名小小的码农，目前还在清华大学混吃混喝。
 
-My name is Ben, I live in NYC, and I'd like to be a Red Team Penetration Tester.
+我希望这个博客可以一直更新下去，作为记录本人生活的一个平台。不单单是写和计算机有关的文章——我的兴趣爱好，诸如*布袋戏*，*墨学*，*古典音乐*，*马克思主义*，都会是我写作的内容
 
-This term is often interchangeable with "Ethical Hacker," but that's like saying "non-embezzling accountant."
+狷墨之名是中学时代起得，狷来自于性格，墨是本人的行为准则。狷墨居是我精神上的寄托之地，在那里我是拥有一方天地的**主人**
 
-I'm committed to keeping my hat white and helping people understand and mitigate real-world problems.
+邮箱：hzl17@mails.tsinghua.edu.cn
 
+facebook：[韩狷墨](https://www.facebook.com/boyle.linus.5)
 
-Security is a new career for me. I graduated with a degree in Electrical Engineering and have worked for two defense contractors and a San Francisco gadget startup.
+Bilibili: [狷墨居主人](https://space.bilibili.com/18177890/)
 
-It's fascinating how technology can start out as a flash of inspiration and end up impacting people's lives. But it's not without its risks, and it's important that we stay ahead of them as much as possible.
-
-Check out my projects and writings linked at the top and bottom of this page. You can also find me on twitter at [@berzerk0](https://twitter.com/berzerk0).
-
-
-[Main Page](index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](CTF-Writeups/CTF-index.html) \| [How-To Guides](How-To-Guides/HowTo-index.html) <br>
+[首页](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \|
