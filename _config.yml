@@ -3,9 +3,9 @@ title: 狷墨居
 subtitle: 狷墨居主人的个人天地
 welcome_message: <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">本站源码</a>
 description: 记录狷墨居主人的技术心得、生活点滴
-creator: <a href="http://onev.cat">@onevcat</a>
+creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
 
-url: "http://vno.onevcat.com"
+url: "http://linusboyle.github.io"
 
 permalink: /:year/:month/:title/
 
@@ -13,7 +13,7 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: red
+cover_color: purple
 
 # The blog button should not be removed.
 blog_button:
@@ -31,8 +31,8 @@ paginate: 10
 paginate_path: "page/:num/"
 
 # Comment
-comment:
-    disqus: vno-jekyll
+#comment:
+    #disqus: vno-jekyll
     # duoshuo: 
     
 # Social
