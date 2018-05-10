@@ -2,6 +2,7 @@
 layout: post
 title: Fbterm相关配置
 date: 2018-05-06 
+tag: framebuffer linux
 ---
 
 tty下终端模拟器fbterm使用framebuffer工作，所以像是fbi，fbgs之类的工具是没法使用的。我使用fbterm的目的主要有两个，一个是中文支持，一个是vim插件的支持。不过目前其开发已经停止，在本机上的效果并不完美
