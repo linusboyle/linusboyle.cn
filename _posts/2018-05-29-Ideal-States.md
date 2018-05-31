@@ -1,12 +1,12 @@
 ---
 title: Ideal States:The Ultimate Utopia?
-date:2018-05-30
+date:2018-05-29
 tag:utopia society research paper
 ---
 
 
 
-![Tsinghua](assets/images/Tsinghua.png)
+![Tsinghua](images/Tsinghua.png)
 
 ***Foundations of Western Culture, Final Research Paper***
 
@@ -16,9 +16,6 @@ tag:utopia society research paper
 
 ##The Ultimate Utopia?
 
-**Table of Contents**：
-
-[TOC]
 
 #### In the Era of Anti-Utopia
 
