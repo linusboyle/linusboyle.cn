@@ -1,4 +1,5 @@
 ---
+layout : post
 title : Machine Language
 date : 2018-05-28
 tag: nand2teris publication
