@@ -7,15 +7,15 @@ tag: utopia society
 
 
 
-![Tsinghua](images/Tsinghua.png)
+![Tsinghua](/assets/images/2018/Tsinghua.png)
 
 ***Foundations of Western Culture, Final Research Paper***
 
 ---
 
-#What Makes the Ideal States
+# What Makes the Ideal States
 
-##The Ultimate Utopia?
+## The Ultimate Utopia?
 
 
 #### In the Era of Anti-Utopia
@@ -26,7 +26,7 @@ There are,however,some misunderstanding about the concept of Utopia. When we tal
 
 People often think the Utopia is a communist society.Indeed,from the westerners' points of view,communism is unrealistic and harmful in some ways as well. As long as there's no actual communist society established,I'll refer to it as a form of Utopia,but they are not equal.We'll see that from the early ages philosophers and politicians had begun to build their own ideal states,for the sake of themsevles and their political theory ,and of course not all of them contain the communism-relevant content.Some are realized while others remain Utopia. Personally speaking I advocate pursuing of better society but whether a certain architeture of society is good or bad is rather vague - Let's judge it with time.
 
-####Religious Ideal States
+#### Religious Ideal States
 
 Believe it or not,when we talk about ideal places,The Paradise,The Eden or The Olympia will come to mind.Our ancestor did their best to describe happiness,order,and harmony in these places,probably by telling stories about myths and gods. Take Eden for example:
 
@@ -38,7 +38,7 @@ But roughly speaking the depiction of the ideal religous place has few things to
 
 Maybe the ideal places described in religious classicals are not seemed as bad things just because everyone wants a heaven,and it occurred to me that there is nobody completely hating Utopia.If we have the chance of realizing them,for what reason we shall not adopt those lovely good community form ?For centuries people are intoxicated by the hope of going to heaven,but compared to the life after death,let's focus on our life in possible future in reality,which has been forseen and predicted by many wise men,the majority of whom are philosophers.
 
-####Ideal States by Philosophers
+#### Ideal States by Philosophers
 
 After Enlightment ,'*Liberty,Equality,Fraternity*' became a famous motto. But from the date of its birth,people keep arguing about the order of these three things[3] and finally lead to totally different ideologies. If a society wants absolute liberty,then there will be no equality,as the strong will always beat the weak,which is caused by **freedom**.Likewise,if we advocate absolute equality,people stronger and more intelligent cannnot take the advantage of their inborn talents.We have seen too many examples such as USA,which is *the lighthouse of freedom and democracy* but also where discrimination between genders and races will never be solved, and PRC,which chooses to restrict liberty and the level of equality is relatively high.
 
@@ -99,12 +99,12 @@ Well,to summarize the whole article,I'll say there's no *best* or *ultimate* Uto
 
 Reference:
 
-[1]: *wikipedia*:Utopia,available from https://en.wikipedia.org/wiki/Utopia
+\[1\]: *wikipedia*:Utopia,available from https://en.wikipedia.org/wiki/Utopia
 
-[2]: *wikipedia*:Dystopia,available from https://en.wikipedia.org/wiki/Dystopia
+\[2\]: *wikipedia*:Dystopia,available from https://en.wikipedia.org/wiki/Dystopia
 
-[3]: *wikipedia*:Age of Enlightenment,available from https://en.wikipedia.org/wiki/Age_of_Enlightenment
+\[3\]: *wikipedia*:Age of Enlightenment,available from https://en.wikipedia.org/wiki/Age_of_Enlightenment
 
-[4]: Plato, Book 3, 414e–15c
+\[4\]: Plato, Book 3, 414e–15c
 
-[5]: Gong Qun(2016). The Utopia Spirit and Forms,*Exploration and Free Views*,110-117
+\[5\]: Gong Qun(2016). The Utopia Spirit and Forms,*Exploration and Free Views*,110-117
