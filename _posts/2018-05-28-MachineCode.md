@@ -17,7 +17,7 @@ tag: nand2teris publication
 
 ## Instructions In The ROM
 
-#### language in accordance with the hardware 
+#### Language in accordance with the hardware 
 
 Back to the early days ROM can be plugged in and removed,and inside it is the program we need. Let's think about it: what kind of code can the computer identify and execute?
 
@@ -33,7 +33,7 @@ The answer is *no*,because not everything can be done by computer and therefore 
 
 Let's summarize a bit here:Machine code is powerful for opearating the computer to carry out either arithmetical or logical operations.It takes control of the computer we built in *chapter 5* and acts as a software abstraction layer over the underlying hardware.
 
-##### why we need assembly?
+##### Why do we need assembly?
 
 The machine language can do various things as we stated earlier,we saw in chapter 1 that **nand gate ** only can build the whole hardware needed,and in chapter 2 we saw that **Add** only can be used to construct all sequential logic.**What is turing complete for a language?**
 
@@ -55,8 +55,6 @@ There's no harm doing that,but it will just be another form of machine code,and 
 
 So to avoid **part** of the annoyance,we decide to make the assembly language provide more useful utilities.For example,to achieve the goal of implementing a loop,we can define labels in the source code and refer to them afterwards and jump backwards or forwards.What else?
 
-![ins](../assets/images/2018/instruction.png)
-
 If we could define *variable* ,it will be much more convenient.But variables are more like high-level stuff and is really difficult to implement by machine code.So we choose to define alias for registers in RAM,which makes it easier to refer to a specific register there.
 
 **Adding more features is completely ok as it is what modern assembly does,but for simplicity we limit our footsteps here. **
@@ -65,4 +63,22 @@ If we could define *variable* ,it will be much more convenient.But variables are
 
 #### Specification
 
-**See the textbook......**
+==**See the textbook......**==
+
+![ins](../assets/images/2018/AInstruction.png)
+
+![ins](../assets/images/2018/CInstruction.png)
+
+#### Logic Model
+
+---
+
+| Background | The general-purpose Hack computer we built earlier, and the interface designed as the ALU's input. |
+| ---------- | ---------------------------------------- |
+| Goal       | Consider again about the ALU and its input,which define a set of instructions and a machine language.Design an assembly language corresponding to this set and implement the compiler,making our first step towards software layer. |
+| Input      | Content:Whole Hack Computer and the ALU I/O specification.Test assembly language scripts |
+| Process    | Review the input bit set of ALU in Hack implementation |
+| Output     | Programs written inHack assembly language |
+| Effect     | The Hack Computer can take input as assembly language and act accordingly,which leads to later design of software. |
+
+---
