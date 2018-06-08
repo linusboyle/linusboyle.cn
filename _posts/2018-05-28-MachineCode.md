@@ -33,7 +33,7 @@ The answer is *no*,because not everything can be done by computer and therefore 
 
 Let's summarize a bit here:Machine code is powerful for opearating the computer to carry out either arithmetical or logical operations.It takes control of the computer we built in *chapter 5* and acts as a software abstraction layer over the underlying hardware.
 
-##### Why do we need assembly?
+##### Why do we need assembly?	
 
 The machine language can do various things as we stated earlier,we saw in chapter 1 that **nand gate ** only can build the whole hardware needed,and in chapter 2 we saw that **Add** only can be used to construct all sequential logic.**What is turing complete for a language?**
 
@@ -59,8 +59,6 @@ If we could define *variable* ,it will be much more convenient.But variables are
 
 **Adding more features is completely ok as it is what modern assembly does,but for simplicity we limit our footsteps here. **
 
-
-
 #### Specification
 
 ==**See the textbook......**==
@@ -69,7 +67,11 @@ If we could define *variable* ,it will be much more convenient.But variables are
 
 ![ins](../assets/images/2018/CInstruction.png)
 
-#### Logic Model
+#### Connections:How to implement?
+
+It's not our business today to implement the ASCII now.However,the conversion between 0s and 1s ,and human-readable characters should be attached great importance to.What carries out this process is called an __assembler__,which will be built **in next chapter**.
+
+### Logic Model
 
 ---
 
@@ -81,4 +83,3 @@ If we could define *variable* ,it will be much more convenient.But variables are
 | Output     | Programs written inHack assembly language |
 | Effect     | The Hack Computer can take input as assembly language and act accordingly,which leads to later design of software. |
 
----
