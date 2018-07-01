@@ -2,10 +2,10 @@
 title: 狷墨居
 subtitle: 狷墨居主人的个人天地
 welcome_message: <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">本站源码</a>
-description: 记录狷墨居主人的技术心得、生活点滴
+description: 风含翠篠娟娟净，雨裛红蕖冉冉香
 creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
 
-url: "http://linusboyle.github.io"
+url: "https://linusboyle.github.io"
 
 permalink: /:year/:month/:title/
 
@@ -24,6 +24,7 @@ blog_button:
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
     - {title: BiliBili, description: Bilibili homepage, url: 'https://space.bilibili.com/18177890'}
+    - {title: About Me, description: description of myself in Chinese, url: '/2018/07/About-Me'}
 
 # Pagination
 gems: [jekyll-paginate]
@@ -45,6 +46,6 @@ social:
     mail: hzl17@mails.tsinghua.edu.cn
 
 # Google Analytics
-#ga:
-    # id: your_ga_id
-    # host: your_host
+ga:
+     id: UA-121698925-1
+     host: linusboyle.github.io
