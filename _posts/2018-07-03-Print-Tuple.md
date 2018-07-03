@@ -4,7 +4,7 @@ layout: post
 tag: c++ template tuple
 date: 2018-07-03
 ---
-在c++中遍历元组的基本方法
+在c++中遍历元组的基本方法,最终实现传入任意函数对象作用于元组的元素
 
 ### 打印元组
 这里用cout举例，提供一种方法遍历元组的元素并依次输出，显然这需要可变参数和递归。首先定义一个辅助函数确定数组大小：(这里参考了[Rajasekharan Vengalil的博客](https://blogorama.nerdworks.in/iteratingoverastdtuple/) )
@@ -50,7 +50,7 @@ int main(){
 ~/dev/program/template$./print 
 2 2 fal 1 0 hah
 ```
-(忘了std::booleanalpha，anyway...)
+(忘了std::boolnalpha，anyway...)
 
 如果要倒序输出只需要把1和2调换就行了
 
@@ -107,3 +107,42 @@ int main(){
 1 1 5 1 really 
 ```
 所有布尔值都被过滤掉了
+
+### 能否抽象出迭代器，传入函数对象？
+
+这个问题我想了想，结合一些资料，认为是可以实现的。观察print的实现方法，其实和cout没有实际的耦合关系，所以可以把函数对象作为参数传进去。沿用print_tuple的结构，增加一个模板参数即可，实现函数for_each如下：
+
+```cpp
+template<int index,typename F,typename... Ts>
+struct apply_tuple {
+    void operator() (F func,std::tuple<Ts...>&& t) {
+        apply_tuple<index - 1,F,Ts...>{}(func,std::forward<std::tuple<Ts...>>(t));
+        std::apply(func,std::make_tuple(std::get<index>(t)));
+    }
+};
+
+template<typename F,typename... Ts>
+struct apply_tuple<0,F,Ts...> {
+    void operator() (F func,std::tuple<Ts...>&& t) {
+        std::apply(func,std::make_tuple(std::get<0>(t)));
+    }
+};
+
+template<typename... Ts,typename Func>
+void for_each(std::tuple<Ts...>&& t,Func F) {
+    const auto size = std::tuple_size<std::tuple<Ts...>>::value;
+    apply_tuple<size - 1,Func,Ts...>{}(F,std::forward<std::tuple<Ts...>>(t));
+}
+```
+
+传入任意函数对象，比如lambda表达式：
+```cpp
+int main(){
+    auto test=std::make_tuple(1,1,"2",true,false,290,"hihi");
+    for_each(std::move(test),[](const auto& x){std::cout<<x<<std::endl;});
+}
+```
+
+这个实现使用了c++17标准的std::apply,但它可以被c++11简单地实现。当然这个实现还有简化的地方(老实说，不怎么优雅)，比如可以直接用index_sequence展开，而不是递归。
+
+c++的模板很奇妙，接下来有时间再深入了解。

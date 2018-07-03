@@ -13,7 +13,6 @@ tag: nand2teris publication
 
 ​	*-Sounds great,but what on earth are the **instructions**?*
 
-[TOC]
 
 ## Instructions In The ROM
 
@@ -25,7 +24,7 @@ Since you have built the CPU and known about its input,it is an easy question. I
 
 The specification of Hack machine language is rather clear after you have built the CPU and the whole Hack computer,you may **stop and think about that**,and here is the graph to make your memory come back. 
 
-![CPU](../assets/images/2018/CPU.png)
+![CPU](/assets/images/2018/CPU.png)
 
 You should get your hand dirty about the binary code,know about which part is manipulated by ALU and which part is used for PC.**As you can see,the underlying architecture of Hack has already proposed a kind of machine language**. We call it a *language*,so can this language express all the ideas we intend to tell the computer?
 
@@ -39,7 +38,7 @@ The machine language can do various things as we stated earlier,we saw in chapte
 
 
 
-![mov](../assets/images/2018/mov.png)
+![mov](/assets/images/2018/mov.png)
 
 *Stephen Dolan* wrote the paper **mov is Turing-complete**,which is not a component in machine language.We have to build a more high-level and user-friendly language over machine language,because there is **no single machine code that can be used to represent the rest**.And from now on,you will start the journey through **software**.
 
@@ -63,9 +62,9 @@ If we could define *variable* ,it will be much more convenient.But variables are
 
 ==**See the textbook......**==
 
-![ins](../assets/images/2018/AInstruction.png)
+![ins](/assets/images/2018/AInstruction.png)
 
-![ins](../assets/images/2018/CInstruction.png)
+![ins](/assets/images/2018/CInstruction.png)
 
 #### Connections:How to implement?
 
