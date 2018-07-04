@@ -1,9 +1,8 @@
 ---
-title : c++对象模型
+title: c++对象模型
 date: 2018-07-04
 layout: post
 tags: c++,object model
-description: 关于c++的对象模型
 ---
 本文算是[Richard Powell的"Intro to the C++ Object Model"](https://www.youtube.com/watch?v=iLiDezv_Frk)的观后感和笔记，建议大家看一看这个演讲，让人受益匪浅。
 
