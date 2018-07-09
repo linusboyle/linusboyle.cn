@@ -13,7 +13,7 @@ permalink: /:year/:month/:title/
 highlighter: rouge
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: purple
+cover_color: 
 
 # The blog button should not be removed.
 blog_button:
@@ -23,7 +23,7 @@ blog_button:
 # Navigation buttons in the front page.
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
-    - {title: BiliBili, description: Bilibili homepage, url: 'https://space.bilibili.com/18177890'}
+    #- {title: BiliBili, description: Bilibili homepage, url: 'https://space.bilibili.com/18177890'}
     - {title: About Me, description: description of myself in Chinese, url: '/2018/07/About-Me'}
 
 # Pagination
@@ -44,6 +44,7 @@ social:
     #facebook: boyle.linus.5
     gplus: 106875862514148562818
     mail: hzl17@mails.tsinghua.edu.cn
+    bilibili: 18177890
 
 # Google Analytics
 ga:

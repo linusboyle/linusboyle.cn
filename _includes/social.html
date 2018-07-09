@@ -21,6 +21,16 @@
   </li>
   {% endif %}
   
+  {% if site.social.bilibili %}
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/{{site.social.bilibili}}" title="@{{site.social.bilibili}} 的 B站空间" target="_blank">
+      <i class="fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  {% endif %}
+
   {% if site.social.twitter %}
   <!-- Twitter -->
   <li class="navigation__item">
