@@ -1,8 +1,8 @@
 ---
-title: Bitter Life in Middle School but Sweet One In Colleage?
+title: Bittersweet University life
 layout: post
 tags: speech english
-date: 2018-07-09
+date: 2018-07-10
 ---
 ##### speech delivered on 2018-07-10
 ##### At Tsinghua University for the 2018 English Summer Camp
