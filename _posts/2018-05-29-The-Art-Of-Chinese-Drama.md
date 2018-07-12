@@ -2,7 +2,8 @@
 layout : post
 title: 戏曲表演艺术
 date: 2018-05-29
-tag: 戏曲 京剧
+tags: 戏曲 京剧
+excerpt: 关于戏曲发展和艺术的一些不完全的笔记
 ---
 
 

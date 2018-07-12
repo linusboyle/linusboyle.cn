@@ -3,6 +3,7 @@ title: 遍历std::tuple
 layout: post
 tag: c++ template tuple
 date: 2018-07-03
+excerpt: 本文讨论了泛型编程中遍历tuple元素，应用自定义函数对象的方法。实现了针对tuple的for_each函数
 ---
 在c++中遍历元组的基本方法,最终实现传入任意函数对象作用于元组的元素
 
@@ -142,7 +143,6 @@ int main(){
     for_each(std::move(test),[](const auto& x){std::cout<<x<<std::endl;});
 }
 ```
-
 这个实现使用了c++17标准的std::apply,但它可以被c++11简单地实现。当然这个实现还有简化的地方(老实说，不怎么优雅)，比如可以直接用index_sequence展开，而不是递归。
 
 c++的模板很奇妙，接下来有时间再深入了解。

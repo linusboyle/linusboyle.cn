@@ -3,6 +3,7 @@ layout : post
 title : Assembly Language
 date : 2018-06-06
 tags : nand2tetris computer
+excerpt: A improved version of the original machine code chapter
 ---
 
 Having built the entire functional Hack computer,this chapter advances towards the hardware-binded control method of the computer, which is **assembly language**. It's our first stop in the journey through the *software layer*.*NOTE* the order has been rearranged,and this chapter is corresponded with original chapter 4.

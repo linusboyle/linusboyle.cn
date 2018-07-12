@@ -3,6 +3,7 @@ title: 单线程固定大小内存池&&C++内存分配的初步理解
 date: 2018-07-02
 layout: post
 tags: c++ 内存池 内存机制
+excerpt: 本文简单介绍了c++ new/delete的展开，一些初步的内存分配。实现了单线程固定大小的内存池。
 ---
 
 ### 关键字new、delete的展开

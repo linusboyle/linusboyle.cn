@@ -2,7 +2,8 @@
 layout: post
 title: Fbterm相关配置
 date: 2018-05-06 
-tag: framebuffer linux
+tags: framebuffer linux
+excerpt: 本文简单介绍了在framebuffer工作的终端模拟器fbterm，它能在一定程度上解决tty中文显示和输入的问题，但是却无法适应全部的要求，建议在迫不得已使用控制台时使用。本文讲解一部分设置项以供参考。
 ---
 
 tty下终端模拟器fbterm使用framebuffer工作，所以像是fbi，fbgs之类的工具是没法使用的。我使用fbterm的目的主要有两个，一个是中文支持，一个是vim插件的支持。不过目前其开发已经停止，在本机上的效果并不完美

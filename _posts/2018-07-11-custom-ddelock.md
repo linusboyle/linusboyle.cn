@@ -1,8 +1,9 @@
 ---
 title: Scrot+ImageMagick增强dde-lock
 date: 2018-07-11
-tag: deepin scrot linux
+tags: deepin scrot linux
 layout: post
+excerpt: 增强（或者说美化）deepin桌面环境的锁屏界面
 ---
 
 之前一段时间一直在用i3，不过网卡出了点问题，最近用回dde（主要是懒得注销了）。以前在i3定制的很多东西没法用，比如动态模糊锁屏。

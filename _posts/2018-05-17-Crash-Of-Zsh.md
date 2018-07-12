@@ -2,7 +2,8 @@
 layout: post
 title: 记zsh的崩溃
 date: 2018-05-17
-category: zsh linux
+tags: zsh linux
+excerpt: 简要记录zsh崩溃的后果和解决方案。
 ---
 
 喜欢折腾的性子总是改不了——为了在deepin上使用kali的工具，不知道怎么回事让zsh崩溃了
