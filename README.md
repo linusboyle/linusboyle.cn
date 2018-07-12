@@ -16,3 +16,5 @@ I also add some personal setting to the theme,to make it more powerful.
 - 一些细节的优化
 - 使用jekyll-feed 自动生成atom feed
 - 增加更多的社交网站入口
+- MathJax支持 可以在博客中插入数学公式了
+- 移除已经废弃的多说评论支持，加入gitalk支持
