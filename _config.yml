@@ -24,10 +24,12 @@ blog_button:
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
     #- {title: BiliBili, description: Bilibili homepage, url: 'https://space.bilibili.com/18177890'}
-    - {title: About Me, description: description of myself in Chinese, url: '/2018/07/About-Me'}
+    - {title: About Me, description: description of myself in Chinese, url: '/AboutMe'}
 
 # Pagination
-gems: [jekyll-paginate]
+plugins: 
+    - jekyll-paginate
+    - jekyll-feed
 paginate: 10
 paginate_path: "page/:num/"
 
