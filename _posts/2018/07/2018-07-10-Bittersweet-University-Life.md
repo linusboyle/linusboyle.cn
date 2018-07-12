@@ -1,7 +1,7 @@
 ---
 title: Bittersweet University life
 layout: post
-tags: speech english
+tags: Speech English
 date: 2018-07-10
 excerpt: a very short speech I delivered in Tsinghua University.
 ---

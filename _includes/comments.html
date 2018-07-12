@@ -1,23 +1,43 @@
 <section class="post-comments">
   {% if site.comment.disqus %}
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+
+      // gitalk的主要参数
+      clientID: '{{site.comment.gitalk.clientID}}',
+      clientSecret: '{{site.comment.gitalk.clientSecret}}',
+      repo: '{{site.comment.gitalk.repo}}',
+      owner: '{{site.comment.gitalk.owner}}',
+      admin: ['{{site.comment.gitalk.owner}}'],
+      id: '{{page.title}}',
+      labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+  {% endif %}
+
+  {% elif site.comment.disqus %}
     <div id="disqus_thread"></div>
     <script>
-    
-    var disqus_config = function () {
-        this.page.url = "{{ page.url | prepend: site.baseurl | prepend: site.url }}";
-        this.page.identifier = "{{ page.url }}";
-    };
+      var disqus_config = function () {
+          this.page.url = "{{ page.url | prepend: site.baseurl | prepend: site.url }}";
+          this.page.identifier = "{{ page.url }}";
+      };
 
-    var disqus_shortname = '{{ site.comment.disqus }}';
-    
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+      var disqus_shortname = '{{ site.comment.disqus }}';
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
     </script>
-    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript
+    </noscript>
     
   {% elsif site.comment.duoshuo %}
     <div class="ds-thread" data-thread-key="{{ page.url }}" data-title="{{ page.title }}" data-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}"></div>
@@ -32,25 +52,4 @@
         })();
     </script>
   {% endif %}
-  
-<!-- Gitalk 评论 start  -->
-<!-- Link Gitalk 的支持文件  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
-<div id="gitalk-container"></div>     <script type="text/javascript">
-    var gitalk = new Gitalk({
-
-    // gitalk的主要参数
-		clientID: `4dc42fc50d0e5228f895`,
-		clientSecret: `0e6b48d493f30bbae58c9a5752d5e4bc63345a2c`,
-		repo: 'linusboyle.github.io',
-		owner: 'linusboyle',
-		admin: ['linusboyle'],
-    id: '{{page.title}}',
-    labels: ['COMMENTS','GITALK'] 
-    });
-    gitalk.render('gitalk-container');
-</script> 
-<!-- Gitalk end -->
-
 </section>

@@ -1,12 +1,14 @@
-# Basic
+# 基本信息
 title: 狷墨居
 subtitle: 狷墨居主人的个人天地
 welcome_message: 墨学爱好者，马克思主义者，掌中戏原教旨主义者，古典乐、新世纪乐、戏曲听众，C/C++程序员。
 description: 风含翠篠娟娟净，雨裛红蕖冉冉香
 creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
 
+#请填写正确的域名
 url: "https://linusboyle.github.io"
 
+#目录层次结构 默认是年-月-标题
 permalink: /:year/:month/:title/
 
 # Format
@@ -21,22 +23,28 @@ blog_button:
     description: Visit blog
 
 # Navigation buttons in the front page.
+# 可以任意添加，注意格式
+# 不建议过多
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
-    #- {title: BiliBili, description: Bilibili homepage, url: 'https://space.bilibili.com/18177890'}
     - {title: About Me, description: description of myself in Chinese, url: '/AboutMe'}
 
-# Pagination
 plugins: 
     - jekyll-paginate
     - jekyll-feed
+
 paginate: 10
 paginate_path: "page/:num/"
 
-# Comment
-#comment:
+# Comment 只允许一个，优先级递减。其中多说已经关停
+comment:
+    gitalk:
+        clientID: 4dc42fc50d0e5228f895
+        clientSecret: 0e6b48d493f30bbae58c9a5752d5e4bc63345a2c
+        repo: linusboyle.github.io
+        owner: linusboyle
     #disqus: vno-jekyll
-    # duoshuo: 
+    #duoshuo: 
     
 # Social
 social:
