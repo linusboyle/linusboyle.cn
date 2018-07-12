@@ -1,11 +1,11 @@
 # Basic
-title: 狷墨居
-subtitle: 狷墨居主人的个人天地
-welcome_message: 墨学爱好者，马克思主义者，掌中戏原教旨主义者，古典乐、新世纪乐、戏曲听众，C/C++程序员。
-description: 风含翠篠娟娟净，雨裛红蕖冉冉香
-creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
+title: DA1SY
+subtitle: 偏有宸机
+welcome_message: 诗词爱好者，艺术爱好者，渗透测试工程师，Python爱好者，小姐姐爱好者,在校高中生。
+description: 不恨古人吾不见，恨古人不见吾狂耳
+creator: <a href="https://github.com/da1sy">@DA1SY</a>
 
-url: "https://linusboyle.github.io"
+url: "https://da1sy.github.io"
 
 permalink: /:year/:month/:title/
 
@@ -38,15 +38,15 @@ paginate_path: "page/:num/"
     
 # Social
 social:
-    weibo: 5370899507
-    github: linusboyle
+    weibo: @偏有宸机
+    github: da1sy
     #twitter: onevcat
     #facebook: boyle.linus.5
-    gplus: 106875862514148562818
-    mail: hzl17@mails.tsinghua.edu.cn
-    bilibili: 18177890
+    #gplus: 106875862514148562818
+    mail: lda1sy@foxmail.com/oneda1sy@outlook.com
+    QQ: 3078187521
 
 # Google Analytics
 ga:
      id: UA-121698925-1
-     host: linusboyle.github.io
+     host: da1sy.github.io

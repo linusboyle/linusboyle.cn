@@ -1,3 +1,1 @@
-本人的gitpage
-
-从berzerk0的gitpage修改而来，采用slate
+Thank the source provider,Juan Mo Ju.s
