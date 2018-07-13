@@ -36,7 +36,7 @@ plugins:
 paginate: 10
 paginate_path: "page/:num/"
 
-# Comment 只允许一个，优先级递减。其中多说已经关停
+# Comment 只允许一个，优先级递减
 comment:
     gitalk:
         clientID: 4dc42fc50d0e5228f895
@@ -44,7 +44,6 @@ comment:
         repo: linusboyle.github.io
         owner: linusboyle
     #disqus: vno-jekyll
-    #duoshuo: 
     
 # Social
 social:
