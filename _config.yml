@@ -60,3 +60,10 @@ social:
 ga:
      id: UA-121698925-1
      host: linusboyle.github.io
+
+exclude:
+    - README.md
+    - Gemfile
+    - Gemfile.lock
+    - CNAME
+    - changelog
