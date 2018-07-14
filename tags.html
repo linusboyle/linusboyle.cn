@@ -1,0 +1,23 @@
+---
+layout: page
+permalink: /tags/
+---
+
+<div id="archives">
+{% for tag in site.tags %}
+  <div class="archive-group">
+    {% capture tag_name %}{{ tag | first }}{% endcapture %}
+    <h2 id="#{{ tag_name | slugize }}">{{ tag_name }}</h2>
+    <a name="{{ tag_name | slugize }}"></a>
+    {% for post in site.tags[tag_name] %}
+     <li>
+		 <a href="{{ post.url }}">
+		 {{ post.title }}
+		 </a>
+		 <small>{{ post.date | date_to_string }}</small>
+		 </li>
+    {% endfor %}
+  </div>
+{% endfor %}
+</div>
+

@@ -1,7 +1,10 @@
 ---
 title: 遍历std::tuple
 layout: post
-tag: c++ template tuple
+tag: 
+- c++ 
+- template 
+- tuple
 date: 2018-07-03
 excerpt: 本文讨论了泛型编程中遍历tuple元素，应用自定义函数对象的方法。实现了针对tuple的for_each函数
 ---

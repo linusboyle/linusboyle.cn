@@ -2,7 +2,9 @@
 layout: post
 title: 如何在终端打印图片
 date: 2018-06-28
-tags: shell linux 
+tags: 
+- shell 
+- linux 
 excerpt: 描述了我修改的一个小脚本，可以在特定的终端支持直接打印图片。
 ---
 

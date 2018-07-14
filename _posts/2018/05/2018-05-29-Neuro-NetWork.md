@@ -1,7 +1,9 @@
 ---
 layout : post
 title: 神经网络金言
-tags: NN 神经网络 计算思维
+tags: 
+- 神经网络 
+- 计算思维
 date: 2018-05-29
 excerpt: a single sentence about NN :)
 ---

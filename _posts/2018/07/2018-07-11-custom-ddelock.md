@@ -1,7 +1,10 @@
 ---
 title: Scrot+ImageMagick增强dde-lock
 date: 2018-07-11
-tags: deepin scrot linux
+tags: 
+- deepin 
+- scrot 
+- linux
 layout: post
 excerpt: 增强（或者说美化）deepin桌面环境的锁屏界面
 ---

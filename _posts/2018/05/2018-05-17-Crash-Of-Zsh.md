@@ -2,7 +2,9 @@
 layout: post
 title: 记zsh的崩溃
 date: 2018-05-17
-tags: zsh linux
+tags: 
+- zsh 
+- linux
 excerpt: 简要记录zsh崩溃的后果和解决方案。
 ---
 

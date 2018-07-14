@@ -1,7 +1,11 @@
 ---
 title: C++实现通用函数返回值记忆（Memoization）"装饰器"
 date: 2018-07-07
-tags: c++ memoization template functional
+tags: 
+- c++ 
+- memoization 
+- template 
+- functional
 layout: post
 excerpt: 本文试图实现类似python的作用于函数的装饰器，它存储函数的返回值，而不用额外增添相应的代码。实现部分借鉴Y-不动点组合子的概念，实现了对任意lambda表达式的返回值记忆
 ---

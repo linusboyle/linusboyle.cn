@@ -2,7 +2,9 @@
 title: c++对象模型
 date: 2018-07-04
 layout: post
-tags: c++ object model
+tags: 
+- c++ 
+- object model
 excerpt: 一篇观后感，记录了c++最基础的对象模型:pod,对齐,成员函数的绑定等
 ---
 本文算是[Richard Powell的"Intro to the C++ Object Model"](https://www.youtube.com/watch?v=iLiDezv_Frk)的观后感和笔记，建议大家看一看这个演讲，让人受益匪浅。
