@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: archives
+title: Tags
 permalink: /tags/
 ---
 
@@ -7,7 +8,7 @@ permalink: /tags/
 {% for tag in site.tags %}
   <div class="archive-group">
     {% capture tag_name %}{{ tag | first }}{% endcapture %}
-    <h2 id="#{{ tag_name | slugize }}">{{ tag_name }}</h2>
+    <h3 id="#{{ tag_name | slugize }}">{{ tag_name }}</h3>
     <a name="{{ tag_name | slugize }}"></a>
     {% for post in site.tags[tag_name] %}
      <li>
@@ -16,8 +17,9 @@ permalink: /tags/
 		 </a>
 		 <small>{{ post.date | date_to_string }}</small>
 		 </li>
+     <p></p>
     {% endfor %}
+    <p></p>
   </div>
 {% endfor %}
 </div>
-

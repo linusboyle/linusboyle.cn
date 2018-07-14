@@ -20,3 +20,6 @@ I also add some personal setting to the theme,to make it more powerful.
 - MathJax支持 可以在博客中插入数学公式了
 - 移除已经废弃的多说评论支持，加入gitalk支持
 - 移植google analytics
+- 增添归档
+- 增添标签索引页
+- 增添404页面(尚未美化)
