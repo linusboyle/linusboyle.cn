@@ -3,13 +3,23 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v3] - 2018-07-14
+
+### Added
+- 添加网站地图
+
+### Changed
+- 谷歌分析替换为gtag.js
+
 ## [v2] - 2018-07-13
-###Added
+
+### Added
 - 增加自定义域名
 - 增加简单的404页面
 - 添加镜像站
 
 ## [v1] - 2018-07-12
+
 ### Added
 - 增加gitalk的支持
 
