@@ -19,15 +19,16 @@ cover_color:
 
 # The blog button should not be removed.
 blog_button:
-    title: Blog
-    description: Visit blog
+    title: 博文列表
+    description: Visit Blog
 
 # Navigation buttons in the front page.
 # 可以任意添加，注意格式
 # 不建议过多
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
-    - {title: About Me, description: description of myself in Chinese, url: '/AboutMe'}
+    - {title: 关于我, description: 关于狷墨居主人的介绍, url: '/AboutMe'}
+    - {title: 归档, description: 文章归档, url: '/archives'}
 
 plugins: 
     - jekyll-paginate
@@ -65,4 +66,5 @@ exclude:
     - Gemfile
     - Gemfile.lock
     - CNAME
-    - changelog
+    - changelog.md
+    - LICENSE

@@ -7,9 +7,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - 添加网站地图
+- 添加归档页面
 
 ### Changed
 - 谷歌分析替换为gtag.js
+- 侧边栏导航按钮将在同一页面打开（为归档和自我介绍页面考虑）
 
 ## [v2] - 2018-07-13
 
