@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - 添加网站地图
 - 添加归档页面
+- 添加标签索引页面
+- 添加新的布局，适用于归档、标签等特殊页面
 
 ### Changed
 - 谷歌分析替换为gtag.js

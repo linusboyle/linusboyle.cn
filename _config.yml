@@ -1,7 +1,7 @@
 # 基本信息
 title: 狷墨居
 subtitle: 狷墨居主人的个人天地
-welcome_message: 墨学爱好者，马克思主义者，掌中戏原教旨主义者，古典乐、新世纪乐、戏曲听众，C/C++程序员。
+welcome_message: 墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。
 description: 风含翠篠娟娟净，雨裛红蕖冉冉香
 creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
 
@@ -19,7 +19,7 @@ cover_color:
 
 # The blog button should not be removed.
 blog_button:
-    title: 博文列表
+    title: 博文
     description: Visit Blog
 
 # Navigation buttons in the front page.
@@ -29,6 +29,7 @@ nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
     - {title: 关于我, description: 关于狷墨居主人的介绍, url: '/AboutMe'}
     - {title: 归档, description: 文章归档, url: '/archives'}
+    - {title: 标签, description: 文章标签索引, url: '/tags'}
 
 plugins: 
     - jekyll-paginate

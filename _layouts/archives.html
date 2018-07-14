@@ -15,3 +15,9 @@ layout: default
     {{ content }}
   </section>
 </article>
+
+{% if page.nocomment %}
+  <p></p>
+{% else %}
+  {% include comments.html %}
+{% endif %}
