@@ -86,4 +86,4 @@ for i in range(100,200):
 
 运行效果：
 ![多线程](https://img-blog.csdn.net/20180504165634332?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RhMXN5ZGExc3k=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-![showcase](/assets/images/2018/lockshowcase.gif)
+
