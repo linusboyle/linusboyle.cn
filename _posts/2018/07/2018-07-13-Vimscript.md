@@ -6,7 +6,7 @@ tags:
     - Vimscript
     - Note
 layout: post
-
+excerpt: 这篇文章是学习Vimscript的一些笔记，涉及少量的使用技巧。主要是知识点的罗列，不涉及实战。
 ---
 作为一个Vimer用了这么久vim，其实Vimscript一直是一知半解，从刚开始接触的时候复制别人的配置，到现在的各种需求已经无法满足。看着自己1000+行的vimrc，看来是很有简化和优化的必要，这篇文章是学习Vimscript的一些笔记。
 
@@ -215,3 +215,5 @@ endfunction
 全部函数使用:h functions 查看
 
 关于实战，将在后续单独post中讲述。接下来我会对我又臭又长的vimrc进行一次修改:)
+
+
