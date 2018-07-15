@@ -214,3 +214,4 @@ endfunction
 
 全部函数使用:h functions 查看
 
+关于实战，将在后续单独post中讲述。接下来我会对我又臭又长的vimrc进行一次修改:)
