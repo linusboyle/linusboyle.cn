@@ -25,7 +25,7 @@ nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
     - {title: Tags, description: 文章分类, url: '/tags'}
     - {title: Qzone, description: QQ空间, url: 'https://user.qzone.qq.com/3078187521'}
-    - {title: Me, description: 关于我, url: '/2018/07/About-Me'}
+    - {title: Me, description: 关于我, url: 'https://da1sy.github.io/9999/09/About-Me'}
     #- {title: The archive, description: 文章归档, url: '/archives'}
     
 # Pagination
