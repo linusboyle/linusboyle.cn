@@ -1,7 +1,7 @@
 ---
 title: Python-SSH批量登陆并执行命令
 date: 2018-05-04
-tag: python
+tag: Python
 layout: post
 ---
 
