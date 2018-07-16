@@ -23,11 +23,11 @@ blog_button:
 # Navigation buttons in the front page.
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
+    - {title: Tags, description: 文章分类, url: '/tags'}
     - {title: Qzone, description: QQ空间, url: 'https://user.qzone.qq.com/3078187521'}
     - {title: Me, description: 关于我, url: '/2018/07/About-Me'}
-    - {title: The archive, description: 文章归档, url: '/archives'}
-    - {title: directory, description: 文章标签索引, url: '/tags'}
-
+    #- {title: The archive, description: 文章归档, url: '/archives'}
+    
 # Pagination
 gems: [jekyll-paginate]
 paginate: 10
