@@ -18,13 +18,15 @@ cover_color:
 # The blog button should not be removed.
 blog_button:
     title: Blog
-    description: Visit blog
+    description: 博客
 
 # Navigation buttons in the front page.
 nav:
     #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
-    - {title: Qzone, description: Qzone., url: 'https://user.qzone.qq.com/3078187521'}
-    - {title: About Me, description: description of myself in Chinese, url: '/2018/07/About-Me'}
+    - {title: Qzone, description: QQ空间, url: 'https://user.qzone.qq.com/3078187521'}
+    - {title: Me, description: 关于我, url: '/2018/07/About-Me'}
+    - {title: The archive, description: 文章归档, url: '/archives'}
+    - {title: directory, description: 文章标签索引, url: '/tags'}
 
 # Pagination
 gems: [jekyll-paginate]
