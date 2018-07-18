@@ -3,30 +3,36 @@ title: 狷墨居
 subtitle: 狷墨居主人的个人天地
 welcome_message: 墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。
 description: 风含翠篠娟娟净，雨裛红蕖冉冉香
-creator: <a href="https://github.com/linusboyle">@狷墨居主人</a>
 
-#请填写正确的域名
+# 名称以及（可选的）额外主页
+creator: 
+    name: 狷墨居主人
+    extralink: https://github.com/linusboyle
+
+# 填写git仓库地址,用于标识网站源码（可选）
+repo: https://github.com/linusboyle/linusboyle.github.io
+
+# 请填写正确的域名
 url: "https://linusboyle.cn"
 
-#目录层次结构 默认是年-月-标题
+# 目录层次结构 默认是年-月-标题
 permalink: /:year/:month/:title/
 
-# Format
+# 勿改
 highlighter: rouge
 
-# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
+# 背景图片的处理方法，合法值: blue, green, purple, red, orange or slate. 要使用原图则为空
 cover_color: 
 
-# The blog button should not be removed.
+# 进入主目录的按钮，请勿删除
 blog_button:
     title: 博文
     description: Visit Blog
 
-# Navigation buttons in the front page.
+# 主页面的导航按钮
 # 可以任意添加，注意格式
 # 不建议过多
 nav:
-    #- {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
     - {title: 关于我, description: 关于狷墨居主人的介绍, url: '/AboutMe'}
     - {title: 归档, description: 文章归档, url: '/archives'}
     - {title: 标签, description: 文章标签索引, url: '/tags'}
@@ -39,7 +45,7 @@ plugins:
 paginate: 10
 paginate_path: "page/:num/"
 
-# Comment 只允许一个，优先级递减
+# 评论插件  只允许一个，优先级递减
 comment:
     gitalk:
         clientID: 4dc42fc50d0e5228f895
@@ -48,20 +54,21 @@ comment:
         owner: linusboyle
     #disqus: vno-jekyll
     
-# Social
+# 社交网站入口，填写标识符而非用户名
 social:
-    weibo: 5370899507
+    #weibo: 5370899507
     github: linusboyle
     #twitter: onevcat
-    #facebook: boyle.linus.5
+    facebook: boyle.linus.5
     gplus: 106875862514148562818
     mail: linusboyle@gmail.com  
     bilibili: 18177890
 
-# Google Analytics
+# Google Analytics,采用的是gtag.js
 ga:
      id: UA-121698925-1
 
+# 忽略的文件
 exclude:
     - README.md
     - Gemfile
@@ -69,3 +76,4 @@ exclude:
     - CNAME
     - changelog.md
     - LICENSE
+    - COMMIT

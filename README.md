@@ -6,9 +6,13 @@ With many thanks to onevcat,who has made this theme.
 
 I also add some personal setting to the theme,to make it more powerful.
 
+**note:** this theme is currently under development,so to use it please change all the personal settings.
+
 ## 狷墨居主人的gitpage
 
 这是狷墨的博客源码。感谢onevcat创作的主题，狷墨在他基础上增添了不少功能。
+
+**注意** 本主题还在开发，并未发布，如果要使用，请将所有个人设置替换，以防止对本人网站的影响
 
 ## 作为一个主题：
 

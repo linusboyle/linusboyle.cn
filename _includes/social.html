@@ -11,6 +11,15 @@
   </li>
   {% endif %}
 
+  {% if site.social.facebook %}
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/{{site.social.facebook}}" title="@{{site.social.facebook}} 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  {% endif %}
   {% if site.social.github %}
   <!-- Github -->
   <li class="navigation__item">

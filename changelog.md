@@ -1,7 +1,15 @@
-# note
+# Note
 All notable changes to this project will be documented in this file.
 
+所有关于网站架构和主题更改的修改都将在这里描述
+
 # Alpha
+
+## [v4] - 2018-07-18
+
+### Changed
+- 增加git仓库地址的配置项
+- 将页脚的连接改为在新标签页打开（更符合需求）
 
 ## [v3] - 2018-07-14
 
