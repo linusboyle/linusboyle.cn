@@ -3,8 +3,8 @@ title: 关于不完全的类型
 date: 2018-07-20
 tags:
 - sizeof
-- C++
-- note
+- c++
+- Note
 layout: post
 excerpt: 一段很短的笔记，关于编译期的类型
 ---
