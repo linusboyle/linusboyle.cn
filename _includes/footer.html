@@ -14,10 +14,15 @@
           创建，
         {% endif %}
         采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        {% if site.repo %}
         您可以在此找到
-        <a href="{% if site.repo %}{{site.repo}}{% else %}https://github.com/linusboyle/linusboyle.github.io{% endif %}" target="_blank">
+        <a href="{{site.repo}}" target="_blank">
           本站源码
-        </a> - &copy; {{site.time | date: "%Y"}}
+        </a>
+        {% endif %}
+      </span>
+      <span>
+        &copy; {{site.time | date: "%Y"}}
       </span>
     </footer>
 </section>
