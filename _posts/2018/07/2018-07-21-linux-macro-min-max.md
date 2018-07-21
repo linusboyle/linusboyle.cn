@@ -9,7 +9,7 @@ tags:
 excerpt: 一小段关于linux源码中min和max的正确定义的讨论
 ---
 
-![这篇博客](http://gaomf.cn/2017/10/08/Kernel_min_max_macro/)和以往的对linux源码宏定义的解释不太一样，它所讲解的是这样一段定义：
+[这篇博客](http://gaomf.cn/2017/10/08/Kernel_min_max_macro/)和以往的对linux源码宏定义的解释不太一样，它所讲解的是这样一段定义：
 
 ```c
 #define __min(t1, t2, min1, min2, x, y) ({              \
