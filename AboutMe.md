@@ -1,6 +1,6 @@
 ---
 title: 关于我
-layout: archives
+layout: individual
 excerpt: 关于我
 ---
 
