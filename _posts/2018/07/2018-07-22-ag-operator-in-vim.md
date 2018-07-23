@@ -198,3 +198,58 @@ function! GrepOperator(type)
     endif
 endfunction
 ```
+
+### 版本四：纯vimscrippt
+
+ok，我总算知道怎么用vimscript找项目根目录了，现在替换成纯vimscript写法：
+```vim
+function! Find_project_root()
+
+    let l:path = simplify(expand("%:p:h"))
+    let l:previous_path = ""
+    let l:markers = ['.root','.git','.svn']
+
+    while l:path != l:previous_path
+        for root in l:markers
+            if !empty(globpath(l:path, root, 1))
+                let l:proj_dir = simplify(fnamemodify(l:path, ':p'))
+                if l:proj_dir == '/'
+                    return ""
+                endif
+                return l:proj_dir
+            endif
+        endfor
+        let l:previous_path = l:path
+        let l:path = fnamemodify(l:path, ':h')
+    endwhile
+    return ""
+endfunction
+
+" grep operator
+nnoremap <leader>g :set operatorfunc=GrepOperator<cr>g@
+vnoremap <leader>g :<c-u>call GrepOperator(visualmode())<cr>
+
+function! GrepOperator(type)
+    let saved_unnamed_register = @@
+    let project_root=Find_project_root()
+
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        "ignore multiline mode,just because it's not useful
+        return
+    endif
+
+    if empty(l:project_root)
+        "search in current dir
+        silent! execute "grep! " . shellescape(@@)
+    else
+        "else search in root dir
+        silent! execute "grep! " . shellescape(@@) . " ". project_root
+    endif
+
+    let @@ = saved_unnamed_register
+endfunction
+```
