@@ -1,7 +1,7 @@
 ---
 date: 2018-07-22
 layout: post
-title: 在VIM中正确加载bash别名
+title: 在Vim中正确加载bash别名
 tags: 
 - bash
 - linux
