@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v5] - 2018-07-24
+
+### Added
+- 增加tag页面开头的概览
+
+### Changed
+- 修改read-more的显示内容为摘要，避免mathjax的介入
+
 ## [v4] - 2018-07-18
 
 ### Changed

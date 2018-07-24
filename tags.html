@@ -4,19 +4,33 @@ title: Tags
 nocomment: true
 permalink: /tags/
 ---
+<!-- to make the tagname sorted-->
+{% capture tags %}
+  {% for tag in site.tags %}
+    {{ tag[0] }}
+  {% endfor %}
+{% endcapture %}
+{% assign sortedTags = tags | split:" " | sort %}
 
-<div id="archives">
+<div id='tag_cloud'>
+  {% for tag in sortedTags %}
+  <a href="#{{ tag }}" title="{{ tag }}">{{ tag }}</a>&emsp;
+  {% endfor %}
+</div>
+
+<hr>
+
+<div id="tags">
 {% for tag in site.tags %}
   <div class="archive-group">
     {% capture tag_name %}{{ tag | first }}{% endcapture %}
     <h3 id="#{{ tag_name | slugize }}">{{ tag_name }}</h3>
-    <a name="{{ tag_name | slugize }}"></a>
     {% for post in site.tags[tag_name] %}
      <li>
-		 <a href="{{ post.url }}">
-		 {{ post.title }}
-		 </a>
-		 <small>{{ post.date | date_to_string }}</small>
+      <a href="{{ post.url }}">
+      {{ post.title }}
+      </a>
+		  <small>{{ post.date | date_to_string }}</small>
 		 </li>
      <p></p>
     {% endfor %}
