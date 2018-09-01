@@ -14,6 +14,7 @@ yum install httpd
 -------
 
 Apache主要的配置文件是`/etc/httpd/conf/httpd.conf`,文件中包含许多在基本安装中不需要更改的配置。实际上只需要对文件稍微进行一些更改即可启动并运行服务。
+
 2.1 监听端口
 --------
 Listen配置项，定义了Apache要监听页面请求的IP地址和端口。
@@ -23,12 +24,14 @@ Listen 80
 Listen 127.0.0.1:80
 #即只可本地浏览
 ```
+
 2.2 Html文件位置
 --------
 DocumentRoot指定组成该网站页面的HTML文件位置。默认为
 ```
 DocumentRoot "/var/wwww/html"
 ```
+
 3.主配置文件详解
 -----------
 
