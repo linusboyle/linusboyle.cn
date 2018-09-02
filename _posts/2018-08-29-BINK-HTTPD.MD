@@ -24,14 +24,12 @@ Listen 80
 Listen 127.0.0.1:80
 #即只可本地浏览
 ```
-
 2.2 Html文件位置
 --------
 DocumentRoot指定组成该网站页面的HTML文件位置。默认为
 ```
 DocumentRoot "/var/wwww/html"
 ```
-
 3.主配置文件详解
 -----------
 
@@ -49,8 +47,9 @@ DocumentRoot "/var/wwww/html"
 ```
 
 ----------------------------
-建立多站点的VirtualHost
-==========================
+
+# 建立多站点的VirtualHost
+
 ### **1.创建站点文件目录**
 ```
 [root@www vhost]# mkdir /var/www1
@@ -114,4 +113,39 @@ NameVirtualHost *:80
 ### 5.重启httpd
 ```
 [root@www vhost]# service httpd restart
+```
+----------------
+#### 实验证明
+##### 第一次做的时候我好像没添加dns域名解析 就可实现访问，但是第二次的时候就只能是用ip访问到了。
+##### 所以在这里还需要做好dns服务，并添加对应的解析记录
+
+###### 正向如下：
+```
+
+$TTL 1D
+@       IN SOA  @ rname.invalid. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@               IN      NS      www.da1sy.com.
+www.da1sy.com.  IN      A       192.168.150.11
+www1.da1sy.com. IN      A       192.168.150.11
+www2.da1sy.com. IN      A       192.168.150.11
+```
+###### 反向如下：
+```
+$TTL 1D
+@       IN SOA  @ rname.invalid. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@       NS      www.da1sy.com.
+11      PTR     www.da1sy.com.
+11      PTR     www1.da1sy.com.
+11      PTR     www2.da1sy.com.
+
 ```
