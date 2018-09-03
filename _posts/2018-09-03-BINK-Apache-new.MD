@@ -21,12 +21,12 @@ Listen 8008
 ```
 ### 3.配置.htaccess对web服务目录启用用户认证
 ###### 1) 对需要认证的资源所在的目录进行配置
-> [root@localhost www]# vim /etc/httpd/conf/httpd.conf
+> [root@localhost www]# vim /etc/httpd/vhost/vhost.conf
 
 ```
 ＜Directory "/var/www/html"＞
 　　Options Indexes FollowSymLinks
-　　Allowoverride authconfig      //authconfig 表示对/var/www目录下的内容进行用户认证
+　　AllowOverride authconfig      //authconfig 表示对/var/www目录下的内容进行用户认证
 　　Order allow,deny
 　　Allow from all
 ＜/Directory＞
