@@ -1,7 +1,7 @@
 ---
 title: CentOS6.5 Vsftp服务安装与配置
 date: 2018-09-04
-tags: 服务器搭建
+tags: Centos5.5服务器搭建
 layout: post
 ---
 
