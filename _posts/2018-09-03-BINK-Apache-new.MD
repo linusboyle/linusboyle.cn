@@ -1,7 +1,7 @@
 ---
 title: CentOS6.5 Apache的增值服务
 date: 2018-09-03
-tags: Centos5.5服务器搭建
+tags: Centos6.5服务器搭建
 layout: post
 ---
 
