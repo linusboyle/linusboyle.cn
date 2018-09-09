@@ -7,9 +7,10 @@ tag:
 - 多线程
 layout: post
 excerpt: 多线程执行快速排序（含插入排序信息熵优化）
---
+---
 
 直接上代码喽
+
 ```cpp
 /**
  * quick_sort.cpp
@@ -33,7 +34,7 @@ excerpt: 多线程执行快速排序（含插入排序信息熵优化）
 #include <array>
 #include <thread>
 
-static constexpr std::size_t MAX_THREAD = 0;
+static constexpr std::size_t MAX_THREAD = 3;
 
 static std::size_t Thread;
 
