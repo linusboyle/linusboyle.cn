@@ -7,6 +7,9 @@ layout: default
     <div class="post-meta">
       <time datetime="{{page.date | date: date_to_xmlschema}}" itemprop="datePublished" class="post-meta__date date">{{page.date | date: "%F"}}
       </time> 
+      <span id="busuanzi_container_page_pv"> | 阅读量：<span id="busuanzi_value_page_pv"></span> 次</span>
+
+
       &#8226;
       {% for tag in page.tags %}
       <span class="post-meta__tags tags"><a href="/tags/#{{tag}}">{{tag }}</a></span>
