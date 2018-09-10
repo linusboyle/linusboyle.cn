@@ -1,4 +1,6 @@
-# Basic
+# Basic 
+
+markdown: rdiscount #kramdown
 title: DA1SY
 subtitle: 偏有宸机
 #welcome_message: 诗词爱好者，艺术爱好者，渗透测试工程师，Python爱好者，小姐姐爱好者，在校高中生。
