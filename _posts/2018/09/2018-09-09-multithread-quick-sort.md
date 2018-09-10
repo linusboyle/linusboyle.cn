@@ -2,7 +2,7 @@
 title: 多线程快速排序
 date: 2018-09-09
 tag:
-- C++
+- c++
 - 快速排序
 - 多线程
 layout: post
