@@ -37,7 +37,14 @@ paginate_path: "page/:num/"
 #comment:
     #disqus: vno-jekyll
     # duoshuo: 
-    
+comment:
+    gitalk:
+        clientID: e9fcef3c7903a8c4a875
+        clientSecret: 8cedc80efacb5ba48c917ea59491a1deee26a714
+        repo: da1sy.github.io
+        owner: da1sy
+#disqus: vno-jekyll
+
 # Social
 social:
     weibo: 6300341967
