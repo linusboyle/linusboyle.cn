@@ -5,6 +5,11 @@ layout: default
 <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
+        <!-- 在正文开头添加网易云音乐插件 -->
+      {% if page.music-id %}
+        {% include cloud-music.html %}
+      {% endif %} 
+      {{ content }}
       <time datetime="{{page.date | date: date_to_xmlschema}}" itemprop="datePublished" class="post-meta__date date">{{page.date | date: "%F"}}
       </time> 
       
