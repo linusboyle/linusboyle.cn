@@ -62,10 +62,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll
   jekyll-feed
   jekyll-paginate
   jekyll-sitemap
 
 BUNDLED WITH
-   1.16.1
+   1.16.3
