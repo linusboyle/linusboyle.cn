@@ -41,11 +41,13 @@ paginate_path: "page/:num/"
     # duoshuo: 
 comment:
     gitalk:
-        clientID: e9fcef3c7903a8c4a875
-        clientSecret: 8cedc80efacb5ba48c917ea59491a1deee26a714
+        enable: true #是否开启
+        ClientID: e9fcef3c7903a8c4a875
+        ClientSecret: 8cedc80efacb5ba48c917ea59491a1deee26a714
         repo: da1sy.github.io
+        adminUser: da1sy # 评论初始化账户(GitHub ID)
         owner: da1sy
-#disqus: vno-jekyll
+        
 
 # Social
 social:
