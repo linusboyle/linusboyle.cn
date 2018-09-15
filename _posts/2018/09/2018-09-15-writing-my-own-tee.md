@@ -1,13 +1,13 @@
 ---
-title: 自动动手写一个简易的tee
-date:2018-09-15
+title: 自己动手写一个简易的tee
+date: 2018-09-15
 tag:
 - linux
 - coreutils
 - tee
 - syscall
 excerpt: 用glibc写一个简易的tee
-layout:post
+layout: post
 ---
 ## tee
 
