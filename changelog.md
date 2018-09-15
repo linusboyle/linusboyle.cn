@@ -1,9 +1,23 @@
 # Note
+
 All notable changes to this project will be documented in this file.
 
 所有关于网站架构和主题更改的修改都将在这里描述
 
 # Alpha
+
+## [v7] - 2018-09-15
+
+### Added
+- 增加一些语法高亮文件，包括zenburn，tango，monokai
+
+### Changed
+- 语法高亮默认使用tango
+
+## [v6] - 2018-09-14
+
+### Added
+- 增加网易云音乐组件集成（歌单）
 
 ## [v5] - 2018-07-24
 
