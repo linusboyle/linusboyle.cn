@@ -1,5 +1,5 @@
 ---
-title: ubuntu update Kali-tools
+title: Ubuntu Update Kali-Tools
 date: 2018-09-01
 tags: Linux
 layout: post
