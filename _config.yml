@@ -43,10 +43,10 @@ paginate_path: "page/:num/"
 comment:
     gitalk:
         enable: true #是否开启
-        ClientID: e9fcef3c7903a8c4a875
-        ClientSecret: 8cedc80efacb5ba48c917ea59491a1deee26a714
+        ClientID: b37becea71cd1f12f214
+        ClientSecret: deda0f69ebd69abf77c2f7c92975d4f69fb337f7
         #repo: da1sy.github.io
-        repo: https://github.com/da1sy/da1sy-PL
+        repo: https://github.com/da1sy/PL
         adminUser: da1sy # 评论初始化账户(GitHub ID)
         owner: da1sy
         
