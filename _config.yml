@@ -4,7 +4,8 @@ markdown: rdiscount #kramdown
 title: DA1SY
 subtitle: 偏有宸机
 #welcome_message: 诗词爱好者，艺术爱好者，渗透测试工程师，Python爱好者，小姐姐爱好者，在校高中生。
-description: 不恨古人吾不见，恨古人不见吾狂耳
+description: 天下惟庸人无谤无誉
+#description: 不恨古人吾不见，恨古人不见吾狂耳
 creator: <a href="https://github.com/da1sy">@DA1SY</a>
 
 url: "https://da1sy.github.io"
