@@ -34,8 +34,12 @@ music: 27968003
 ![5](http://da1sy.github.io/assets/images/9-Yue/wifi-6.jpg)
 ### 5.开始暴力破解
 > ⚡/home/da1sy/wifi # aircrack-ng -w /media/da1sy/软件/DA1SY/password/supper955.txt add-01.cap
+
 #### **-w**后面跟的是字典文件，最后面是抓到的包名
-![6](http://da1sy.github.io/assets/images/9-Yue/wifi-7.jpg)
+![6](http://da1sy.github.io/assets/images/9-Yue/wifi-00.webm)
 
 最后就是坐等，这个猜解的快慢取决于GPU的运算能力
+
+**最后成功截图**
+![7](http://da1sy.github.io/assets/images/9-Yue/wifi-8.png)
 
