@@ -41,11 +41,12 @@ paginate_path: "page/:num/"
     # duoshuo: 
 comment:
     gitalk:
-        enable: true #是否开启
+        #enable: true #是否开启
         ClientID: e9fcef3c7903a8c4a875
         ClientSecret: 8cedc80efacb5ba48c917ea59491a1deee26a714
-        repo: https://github.com/da1sy/da1sy-PL
-        adminUser: da1sy # 评论初始化账户(GitHub ID)
+        repo: da1sy.github.io
+        #repo: https://github.com/da1sy/da1sy-PL
+        #adminUser: da1sy # 评论初始化账户(GitHub ID)
         owner: da1sy
         
 
