@@ -133,6 +133,7 @@ set RHOSTS 192.168.1.0/24
 set THREADS 50 
 run
 ```
+
 ### 四．基本漏洞扫描 
 #### 1、使用nc 与目标端口通信，获取目标端口的信息： 
 nc 192.168.1.111 80 
@@ -207,6 +208,7 @@ cd /pentest/sniffers/xspy/
 ./xspy –display 192.168.1.125:0 –delay 100 
 （xspy 这货在bt5 r1 里面貌似木有了）
 ```
+
 ### 五．基础溢出命令 
 #### 1、基本命令： 
 查看可用溢出模块 **show exploits** 
@@ -266,6 +268,7 @@ echo ‘exploit’ >> autoexp.rc
 msfconsole 
 msf> resource autoexp.rc
 ```
+
 ### 六．Meterpreter
 #### 1、当对目标系统进行溢出时，使用meterpreter 作为payload，给测试者返回一个shell，可用于在目标机器上执行更多的操作。 
 例子： 
@@ -588,4 +591,4 @@ super(
 
 ---------------------
 
-本文来自 PolluxAvenger 的CSDN 博客 ，全文地址请点击：https://blog.csdn.net/tan6600/article/details/46850057?utm_source=copy 
+>本文来自 PolluxAvenger 的CSDN 博客 ，全文地址请点击：https://blog.csdn.net/tan6600/article/details/46850057?utm_source=copy 
