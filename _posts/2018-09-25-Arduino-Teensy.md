@@ -9,9 +9,9 @@ layut: post
 * 一块 **Teensy2.0++** 的板子(淘宝一搜就有)
 [1](http://da1sy.github.io/assets/images/9-Yue/teensy-1.jpg)
 * Arduino解释器
-    * 1.8.7版本下载连接：[arduino下载地址](https://downloads.arduino.cc/arduino-1.8.7-linux64.tar.xz "arduino") 
+    - 1.8.7版本下载连接：[arduino下载地址](https://downloads.arduino.cc/arduino-1.8.7-linux64.tar.xz "arduino") 
 * Teensy插件
-    * 下载连接：[Teensy下载地址](https://www.pjrc.com/teensy/td_144/TeensyduinoInstall.linux64 "Teensy")
+    - 下载连接：[Teensy下载地址](https://www.pjrc.com/teensy/td_144/TeensyduinoInstall.linux64 "Teensy")
 
 ### 1.下载好arduino后直接解压
 ```linux
