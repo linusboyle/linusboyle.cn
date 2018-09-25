@@ -7,7 +7,7 @@ layut: post
 
 ### 准备工作
 * 一块 **Teensy2.0++** 的板子(淘宝一搜就有)
-* Arduino解释器
+* Arduino编译器
     - 1.8.7版本下载连接：[arduino下载地址](https://downloads.arduino.cc/arduino-1.8.7-linux64.tar.xz "arduino") 
 * Teensy插件
     - 下载连接：[Teensy下载地址](https://www.pjrc.com/teensy/td_144/TeensyduinoInstall.linux64 "Teensy")
