@@ -69,7 +69,7 @@ void omg(char *SomeCommand)
 #### 编辑好后点**验证**，然后插入**Teensy**板子，最后按一下板子上的按钮完成上传
 
 ### 7.metasploit开启监听
-![5](http://da1sy.github.io/assets/images/9-Yue/teensy-4.png)
+![5](http://da1sy.github.io/assets/images/9-Yue/teensy-5.png)
 ```
 ⚡ /home/da1sy/# msfconsole
 
