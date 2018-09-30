@@ -159,12 +159,12 @@ auto One = church_one<int>;
 auto Two = church_add(One,One);
 auto Four = church_add(Two,Two);
 auto Eight = church_mult(Two,Four);
-auto myEleven = church_pred(Eight);
+auto Seven = church_pred(Eight);
 ```
 
 ok,现在调用函数：
 ```cpp
-myEleven(foo)(1);
+Seven(foo)(1);
 ```
 
 Output：
