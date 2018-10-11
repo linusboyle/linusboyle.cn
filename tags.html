@@ -7,10 +7,10 @@ permalink: /tags/
 <!-- to make the tagname sorted-->
 {% capture tags %}
   {% for tag in site.tags %}
-    {{ tag[0] }}
+    '{{ tag[0] }}'
   {% endfor %}
 {% endcapture %}
-{% assign sortedTags = tags | split:" " | sort %}
+{% assign sortedTags = tags | split:"'" | sort %}
 
 <div id='tag_cloud'>
   {% for tag in sortedTags %}
