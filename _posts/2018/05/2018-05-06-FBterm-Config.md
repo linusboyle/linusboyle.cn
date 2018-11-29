@@ -3,14 +3,13 @@ layout: post
 title: Fbterm相关配置
 date: 2018-05-06 
 tags: 
-- Framebuffer 
+- framebuffer 
 - linux
+- fbterm
 excerpt: 本文简单介绍了在framebuffer工作的终端模拟器fbterm，它能在一定程度上解决tty中文显示和输入的问题，但是却无法适应全部的要求，建议在迫不得已使用控制台时使用。本文讲解一部分设置项以供参考。
 ---
 
 tty下终端模拟器fbterm使用framebuffer工作，所以像是fbi，fbgs之类的工具是没法使用的。我使用fbterm的目的主要有两个，一个是中文支持，一个是vim插件的支持。不过目前其开发已经停止，在本机上的效果并不完美
-
-
 
 [根据ArchWiki](https://wiki.archlinux.org/index.php/Fbterm)，需要先进行用户组的设置，这里跳过不谈。
 
@@ -29,6 +28,8 @@ fcitx应该也可以使用，但是用apt安装对fbterm的支持会卸载图形
 ### 中文显示问题
 
 虽然fbterm能正确识别中文，其显示依旧是？？？（可能是字体的原因）。不过在vim中使用输入法输入中文，显示都没有问题，这也是安装的最主要原因。
+
+***更新：在opensuse中能正常显示中文，应该和发行版环境有关系***
 
 ### Tmux
 
