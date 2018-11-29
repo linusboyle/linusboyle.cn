@@ -1,6 +1,6 @@
 ---
 layout : post
-title: 戏曲表演艺术
+title: 中国戏曲的表演艺术
 date: 2018-05-29
 tags: 
 - 戏曲 

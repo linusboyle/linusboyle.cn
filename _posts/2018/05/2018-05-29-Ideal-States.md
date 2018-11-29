@@ -1,14 +1,12 @@
 ---
-layout : post
-title: Ideal States:The Ultimate Utopia?
+layout: post
+title: 'Ideal States: The Ultimate Utopia?'
 date: 2018-05-29
 tags: 
 - utopia 
 - society
 excerpt: A little bit thinking about the ideal states and whether one should form his/her own one,political or not
 ---
-
-
 
 ![Tsinghua](/assets/images/2018/Tsinghua.png)
 
@@ -19,7 +17,6 @@ excerpt: A little bit thinking about the ideal states and whether one should for
 # What Makes the Ideal States
 
 ## The Ultimate Utopia?
-
 
 #### In the Era of Anti-Utopia
 

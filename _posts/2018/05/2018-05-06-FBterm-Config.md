@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Fbterm相关配置
+title: TTY终端模拟器Fbterm相关配置
 date: 2018-05-06 
 tags: 
 - framebuffer 

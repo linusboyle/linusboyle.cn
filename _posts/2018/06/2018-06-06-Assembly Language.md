@@ -1,10 +1,11 @@
 ---
-layout : post
-title : Assembly Language
-date : 2018-06-06
-tags : 
+layout: post
+title: Assembly Language
+date: 2018-06-06
+tags: 
 - nand2tetris 
 - 汇编语言
+- assembly
 excerpt: A improved version of the original machine code chapter
 ---
 
