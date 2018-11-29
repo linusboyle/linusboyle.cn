@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v8] - 2018-11-28
+
+### Changed
+- 修复404页面的问题 
+
 ## [v7] - 2018-09-15
 
 ### Added

@@ -26,4 +26,4 @@ I also add some personal setting to the theme,to make it more powerful.
 - 移植google analytics
 - 增添归档
 - 增添标签索引页
-- 增添404页面(尚未美化)
+- 增添404页面
