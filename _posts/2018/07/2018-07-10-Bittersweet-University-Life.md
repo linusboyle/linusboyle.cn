@@ -1,5 +1,5 @@
 ---
-title: Bittersweet University life
+title: Bittersweet University Life
 layout: post
 tags: 
 - Speech 
