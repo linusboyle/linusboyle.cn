@@ -4,37 +4,38 @@ title: Tags
 nocomment: true
 permalink: /tags/
 ---
-<!-- to make the tagname sorted-->
-{% capture tags %}
-  {% for tag in site.tags %}
-    '{{ tag[0] }}'
-  {% endfor %}
-{% endcapture %}
-{% assign sortedTags = tags | split:"'" | sort %}
 
-<div id='tag_cloud'>
+<!-- to make the tagname sorted-->
+{% capture tags %}{% for tag in site.tags %}{{tag[0]}}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
+{% assign sortedTags = tags | split: '|' | sort %}
+
+<ul id='tag_cloud'>
   {% for tag in sortedTags %}
-  <a href="#{{ tag }}" title="{{ tag }}">{{ tag }}</a>&emsp;
+    <li>
+      <a href="#{{ tag | cgi_escape }}" class="tag">{{ tag }}
+        <span>({{ site.tags[tag].size }})</span>
+      </a>
+    </li>
   {% endfor %}
-</div>
+</ul>
 
 <hr>
 
 <div id="tags">
 {% for tag in sortedTags %}
   <div class="archive-group">
-    <h3 id="#{{ tag | slugize }}">{{ tag}}</h3>
-    <a name="{{ tag | slugize }}"></a>
+    <h3 id="{{ tag | cgi_escape }}">{{tag}}</h3>
     {% for post in site.tags[tag] %}
-     <li>
-      <a href="{{ post.url }}">
-      {{ post.title }}
-      </a>
-		  <small>{{ post.date | date_to_string }}</small>
-		 </li>
-     <p></p>
+      <div>
+        <span style="float: left;">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </span>
+        <span style="float: right;">
+          {{ post.date | date_to_string }}
+        </span>
+      </div>
+      <div style="clear: both;"></div>
     {% endfor %}
-    <p></p>
   </div>
 {% endfor %}
 </div>
