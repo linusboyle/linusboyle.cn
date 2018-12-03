@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
 - 修改标签页的展示方式
 - 修复标签多余的问题
 
+### Removed
+- 删除文章底部的readmore部分的按钮（css有问题）
+
 ## [v8] - 2018-11-28
 
 ### Changed
