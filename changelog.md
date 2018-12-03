@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v9] - 2018-12-02
+
+### Changed
+- 修改标签页的展示方式
+- 修复标签多余的问题
+
 ## [v8] - 2018-11-28
 
 ### Changed
