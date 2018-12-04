@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v10] - 2018-12-03
+
+### Changed
+- 修改标签字体大小
+
 ## [v9] - 2018-12-02
 
 ### Changed
