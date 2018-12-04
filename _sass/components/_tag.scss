@@ -10,7 +10,7 @@
 }
 
 .tag {
-  background:  #e74c3c ;
+  background: #f54b63;
   border-radius: 3px 0 0 3px;
   color: #FFFFFF;
   display: inline-block;
@@ -42,7 +42,7 @@
 .tag::after {
   background: #f7f9f9;
   border-bottom: 13px solid transparent;
-  border-left: 10px solid  #e74c3c ;
+  border-left: 10px solid #f54b63;
   border-top: 13px solid transparent;
   content: '';
   position: absolute;

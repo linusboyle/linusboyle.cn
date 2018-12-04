@@ -12,7 +12,7 @@ permalink: /tags/
 <ul id='tag_cloud'>
   {% for tag in sortedTags %}
     <li>
-      <a href="#{{ tag | cgi_escape }}" class="tag" style="font-size:10pt">{{ tag }}
+      <a href="#{{ tag | cgi_escape }}" class="tag" style="font-size:.8em">{{ tag }}
         <span>({{ site.tags[tag].size }})</span>
       </a>
     </li>
