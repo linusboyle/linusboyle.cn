@@ -27,15 +27,15 @@ cover_color:
 # 进入主目录的按钮，请勿删除
 blog_button:
     title: 博文
-    description: Visit Blog
+    description: 查看全部文章
 
 # 主页面的导航按钮
 # 可以任意添加，注意格式
 # 不建议过多
 nav:
-    - {title: 关于我, description: 关于狷墨居主人的介绍, url: '/AboutMe'}
     - {title: 归档, description: 文章归档, url: '/archives'}
     - {title: 标签, description: 文章标签索引, url: '/tags'}
+    - {title: 关于我, description: 关于狷墨居主人的介绍, url: '/AboutMe'}
     - {title: 项目, description: 我的项目, url: '/projects'}
 
 plugins: 
@@ -46,7 +46,8 @@ plugins:
 paginate: 10
 paginate_path: "page/:num/"
 
-# 评论插件  只允许一个，优先级递减
+# 评论插件 
+# 只允许一个，优先级递减
 comment:
     gitalk:
         clientID: 4dc42fc50d0e5228f895
@@ -66,8 +67,9 @@ social:
     bilibili: 18177890
 
 # Google Analytics,采用的是gtag.js
+# 如果要启用GA，请换成自己的id，以免影响我的ga流量记录
 ga:
-     id: UA-121698925-1
+    id: UA-121698925-1
 
 # 忽略的文件
 exclude:

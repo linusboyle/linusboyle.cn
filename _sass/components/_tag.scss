@@ -57,5 +57,6 @@
 }
 
 .tag:hover::after {
-  border-left-color: #767676 ;
+  border-left-color: #767676;
+  -webkit-transition: .5s;
 }
