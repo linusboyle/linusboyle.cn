@@ -2,7 +2,7 @@
 title: 清理Vim的历史记录文件(undofile)
 date: 2018-12-02
 tags:
-- vim
+- Vim
 - bash
 - scripting
 - 脚本
