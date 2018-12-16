@@ -4,7 +4,7 @@ date: 2018-12-11
 layout: post
 tags:
 - Vim
-- scripting
+- Vimscript
 excerpt: 作为vim进阶的必经之路，学会逐步放弃对插件的依赖和数千行的配置文件，能更好的帮助你打造自己独特的vim
 ---
 

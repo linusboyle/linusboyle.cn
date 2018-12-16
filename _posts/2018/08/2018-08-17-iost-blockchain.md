@@ -4,8 +4,6 @@ layout: post
 title: 区块链基础知识
 tags: 
 - 区块链
-- blockchain
-- IOST
 excerpt: 记录IOST在清华大学的区块链基础知识讲座 
 ---
 

@@ -2,9 +2,9 @@
 title: Vimscript 学习笔记
 date: 2018-07-13
 tags: 
-    - Vim
-    - Vimscript
-    - Note
+- Vim
+- Vimscript
+- 笔记
 layout: post
 excerpt: 这篇文章是学习Vimscript的一些笔记，涉及少量的使用技巧。主要是知识点的罗列，不涉及实战。
 ---

@@ -4,7 +4,6 @@ date: 2018-12-02
 tags:
 - Vim
 - bash
-- scripting
 - 脚本
 layout: post
 excerpt: 简单快捷地清理vim编辑文件储存的undo文件
