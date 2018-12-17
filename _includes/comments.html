@@ -5,15 +5,13 @@
     <div id="gitalk-container"></div>     
     <script type="text/javascript">
       var gitalk = new Gitalk({
-
-      // gitalk的主要参数
-      clientID: `{{site.comment.gitalk.clientID}}`,
-      clientSecret: `{{site.comment.gitalk.clientSecret}}`,
-      repo: '{{site.comment.gitalk.repo}}',
-      owner: '{{site.comment.gitalk.owner}}',
-      admin: ['{{site.comment.gitalk.owner}}'],
-      id: '{{page.title}}',
-      labels: ['COMMENTS','GITALK'] 
+        clientID: '{{site.comment.gitalk.clientID}}',
+        clientSecret: '{{site.comment.gitalk.clientSecret}}',
+        repo: '{{site.comment.gitalk.repo}}',
+        owner: '{{site.comment.gitalk.owner}}',
+        admin: ['{{site.comment.gitalk.owner}}'],
+        id: '{{page.title |escape}}',
+        labels: ['COMMENTS','GITALK'] 
       });
       gitalk.render('gitalk-container');
     </script> 
