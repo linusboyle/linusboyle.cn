@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v11] - 2018-12-17
+
+### Changed
+- pygment css换为dracula
+
 ## [v10] - 2018-12-03
 
 ### Changed
@@ -79,7 +84,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 降低背景图片亮度
 - 更换tag分割符（现在是西文逗号）
-- 更换不合语义的词语：阅读<-继续阅读；更早<-最早
+- 更换不合语义的词语：阅读-继续阅读；更早-最早
 - 从description切换为excerpt
 
 ### Removed
