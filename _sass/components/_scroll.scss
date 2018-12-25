@@ -1,0 +1,19 @@
+#scroll {
+    right: 0;
+}
+
+.scroll {
+    z-index: 999;
+    position: fixed;
+    top: 50%;
+    text-align: center;
+    line-height: 42px;
+
+    a {
+        display: block;
+        width: 29px;
+        height: 42px;
+        font-size: 28px;
+        background: transparent;
+    }
+}

@@ -217,7 +217,7 @@ td:last-child {
   color: darken($gray, 2%);
 
   a {
-    color: $gray-darker;
+    color: $link-color;
 
     &:hover {
       color: $hover-color;
