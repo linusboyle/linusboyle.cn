@@ -9,6 +9,8 @@ permalink: /tags/
 {% capture tags %}{% for tag in site.tags %}{{tag[0]}}{% unless forloop.last %}|{% endunless %}{% endfor %}{% endcapture %}
 {% assign sortedTags = tags | split: '|' | sort %}
 
+<hr>
+
 <ul id='tag_cloud'>
   {% for tag in sortedTags %}
     <li>
