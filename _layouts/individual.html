@@ -13,11 +13,11 @@ layout: default
 
   <section class="post">
     {{ content }}
+    {% include scroll.html %}
   </section>
 </article>
 
 {% if page.nocomment %}
-  <p></p>
 {% else %}
   {% include comments.html %}
 {% endif %}
