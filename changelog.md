@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v12] - 2019-01-04
+
+### Changed
+- pygment css 换为gruvbox
+
 ## [v11] - 2018-12-17
 
 ### Changed
