@@ -35,7 +35,7 @@ blog_button:
 nav:
     - {title: 归档, description: 文章归档, url: '/archives'}
     - {title: 标签, description: 文章标签索引, url: '/tags'}
-    - {title: 关于我, description: 关于主人和这个小站, url: '/AboutMe'}
+    - {title: 关于, description: 关于主人和这个小站, url: '/AboutMe'}
 
 plugins: 
     - jekyll-paginate
