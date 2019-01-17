@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 # Alpha
 
+## [v13] - 2019-01-17
+
+### Changed
+- 版权和协议声明放在文章底部
+
 ## [v12] - 2019-01-04
 
 ### Changed
