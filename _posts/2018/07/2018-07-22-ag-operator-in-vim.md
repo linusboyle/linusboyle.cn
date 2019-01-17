@@ -6,7 +6,6 @@ tags:
 - Vim
 - Vimscript
 - ag
-- configuration
 excerpt: 通过自定义ag操作符实现快速搜索
 ---
 

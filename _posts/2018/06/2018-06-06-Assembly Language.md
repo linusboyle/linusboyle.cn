@@ -5,7 +5,6 @@ date: 2018-06-06
 tags: 
 - nand2tetris 
 - 汇编语言
-- assembly
 excerpt: A improved version of the original machine code chapter
 ---
 

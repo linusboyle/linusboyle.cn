@@ -4,7 +4,6 @@ title : Machine Language
 date : 2018-05-28
 tags: 
 - nand2tetris
-- assembly
 excerpt: intro of the machine language, which is a part of the book 'Nand++' by me and other classmates
 ---
 

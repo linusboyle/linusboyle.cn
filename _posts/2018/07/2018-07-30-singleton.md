@@ -3,7 +3,7 @@ date: 2018-07-30
 layout: post
 title: 基于模板和继承的单例模式
 tags: 
-- template
+- 模板
 - c++
 - 单例模式
 excerpt: 单例模式的一小段笔记 

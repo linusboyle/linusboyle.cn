@@ -4,7 +4,6 @@ layout: post
 title: 关于Linux中min/max宏写法
 tags:
 - linux
-- macro
 - 宏
 excerpt: 一小段关于linux源码中min和max的正确定义的讨论
 ---

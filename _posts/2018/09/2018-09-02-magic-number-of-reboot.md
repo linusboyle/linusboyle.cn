@@ -4,8 +4,7 @@ layout: post
 date: 2018-09-02
 tag:
 - linux
-- syscall
-- magic
+- 系统调用
 excerpt: 挺有意思的彩蛋：）
 ---
 

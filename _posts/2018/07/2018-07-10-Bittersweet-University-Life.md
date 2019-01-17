@@ -3,7 +3,6 @@ title: Bittersweet University Life
 layout: post
 tags: 
 - 演讲 
-- english
 - 大学生活
 date: 2018-07-10
 excerpt: a very short speech I delivered in Tsinghua University.

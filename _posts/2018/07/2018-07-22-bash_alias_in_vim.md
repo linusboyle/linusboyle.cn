@@ -6,7 +6,6 @@ tags:
 - bash
 - linux
 - Vim
-- configuration
 excerpt: 关于如何在vim中使用bash定义的别名
 ---
 
