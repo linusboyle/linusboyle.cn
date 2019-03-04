@@ -10,7 +10,7 @@ creator:
     extralink: https://github.com/linusboyle
 
 # 填写git仓库地址,用于标识网站源码（可选）
-repo: https://github.com/linusboyle/linusboyle.github.io
+repo: https://github.com/linusboyle/linusboyle.cn
 
 # 请填写正确的域名
 url: "https://linusboyle.cn"
@@ -51,7 +51,7 @@ comment:
     gitalk:
         clientID: 4dc42fc50d0e5228f895
         clientSecret: 0e6b48d493f30bbae58c9a5752d5e4bc63345a2c
-        repo: linusboyle.github.io
+        repo: linusboyle.cn
         owner: linusboyle
     #disqus: vno-jekyll
     
