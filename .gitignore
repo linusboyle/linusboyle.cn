@@ -1,4 +1,6 @@
 #ignore
 
 _site/
+vendor/
 *.swp
+.bundle/
