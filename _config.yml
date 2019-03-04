@@ -79,3 +79,4 @@ exclude:
     - changelog.md
     - LICENSE
     - COMMIT
+    - vendor
