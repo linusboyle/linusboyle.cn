@@ -8,6 +8,10 @@ before_script:
     - chmod +x ./.travis/cibuild
 script: "./.travis/cibuild"
 
+after_success:
+    - chmod +x ./.travis/deploy
+    - ./.travis/deploy
+
 branches:
   only:
   - master
