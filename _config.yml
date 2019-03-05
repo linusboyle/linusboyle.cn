@@ -80,3 +80,5 @@ exclude:
     - LICENSE
     - COMMIT
     - vendor
+    - scripts
+    - vendor

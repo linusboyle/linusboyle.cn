@@ -3,4 +3,5 @@
 _site/
 vendor/
 *.swp
+.sass-cache/
 .bundle/
