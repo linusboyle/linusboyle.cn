@@ -80,6 +80,5 @@ exclude:
     - LICENSE
     - COMMIT
     - vendor
-    - scripts
     - .travis
     - .travis.yml
