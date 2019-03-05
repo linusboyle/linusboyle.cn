@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Assembly Language</title>
+  <meta name="description" content="A improved version of the original machine code chapter">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Assembly Language">
+  <meta name="twitter:description" content="A improved version of the original machine code chapter">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Assembly Language">
+  <meta property="og:description" content="A improved version of the original machine code chapter">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/06/Assembly-Language/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-06-06 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-06
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#nand2tetris">nand2tetris</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#汇编语言">汇编语言</a></span>
+      
+    </div>
+    <h1 class="post-title">Assembly Language</h1>
+  </header>
+
+
+  <section class="post">
+    <p>Having built the entire functional Hack computer,this chapter advances towards the hardware-binded control method of the computer, which is <strong>assembly language</strong>. It’s our first stop in the journey through the <em>software layer</em>.<em>NOTE</em> the order has been rearranged,and this chapter is corresponded with original chapter 4.</p>
+
+<p><img src="/assets/images/2018/logicmodel.png" alt="Logic Model" /></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Congratulations on your completed implementation of the Hack computer. It’s fully functional,and also,powerful. We originate from <strong>Nand</strong> gate only to build the whole computer and adopt Harvard architecture ,which faclitates matters when we look into the underlying structure.Here’s a graph to make your memory of <strong>computer architecture</strong> come back.[1]</p>
+
+<p><img src="/assets/images/2018/Harvard.png" alt="Harvard" /></p>
+
+<p>We’re now going to build our software layers and this chapter will discuss the language that directly generated by hardware implementation and design an assembly language. In the end,we shall be capable to get the machine running as instructed.</p>
+
+<h3 id="what-is-program">What is program?</h3>
+
+<p>Instruction memory,or <em>ROM</em>, is where the instructions are stored. Recall the design of our Hack computer,and you may remember the <strong>Reset</strong> button on the surface of the computer,which will redirect PC to be 0 - equally restart the program. Computer reads instructions in ROM according to the content of PC,and all the instructions form the <em>program</em>.</p>
+
+<p>Since you have already built the computer,it’s quite easy to find the instructions can be classified into 2 kinds: One kind changes the content of A-register,while another carries out operations. You can divide the latter into 2 aspects as well :either jump among the instructions of the program or conduct arithmetical&amp;logical operation.</p>
+
+<p>What we use to encode our program is machine-binded string of 0s and 1s,computer explicitly obey the codes.We call them <strong>Machine language</strong>,because of its direct connection with the underlying hardware platform.</p>
+
+<h3 id="what-is-programming">What is programming?</h3>
+
+<p>Generally speaking,what we are going to do in following chapters is <strong>all about solving problems by programming</strong>. When we already have the computer running,how to translate mental thought or concept to machine-undertstandable notation by programming is the case. A graph below summarizes the general process.[2]</p>
+
+<p><img src="/assets/images/2018/process.png" alt="process" /></p>
+
+<p>As you can see,machine language serves as the fundamental of the software layer as well as the interface for hardware. We can prove that anything a computer can do is able to be expressed by this language.When we are <strong>programming</strong>,the code produced all originate from machine language. What we will do is just facilitate the process of programming.</p>
+
+<h3 id="assemblywhy-do-we-need-it">Assembly:Why do we need it?</h3>
+
+<p>The difference between a machine and a human brain decides there should be higher level of language for programmers.<strong>Assembly Language</strong> is the most fundamental abstraction,which can be understood as mnemonic notation for the machine language. For instance , <code class="highlighter-rouge">1110001110000000</code> can be represented by <code class="highlighter-rouge">D-1</code>.</p>
+
+<p>The design of assembly language is not fixed,but it should be tightly-binded to machine language. Generally speaking,a single assembly instruction is in correspondance with a single machine instruction,so there is no true difference between these two,because the <strong>vocabulary</strong> of the languages is the same - as stated before,jumping and operations - Just like :</p>
+
+<!--```sequence-->
+<!--English->French:one to one-->
+<!--French->English:-->
+
+<!--English->Latin:several to one-->
+<!--Latin->English:-->
+<!--```-->
+
+<p>But we will see later that although unnecessary,the assembly language can provide utilities for <em>programmers</em>,for the sake of simplifying the <strong>programming process</strong>.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>In this part we will see how the Hack Assembly language is designed,and learn how to program using this language. A vast part of details in this section can be found in <strong>Nand2Tetris textbook ,Section 4.2</strong>. Although we rearrange the order of the chapters,it still throws light on the topic.</p>
+
+<h3 id="a--and-c--instructions">A- and C- Instructions</h3>
+
+<p>As mentioned before,from the input of CPU,we classify the instructions to two kinds.In assembly language we define them to A- and C- instructions,respectively.</p>
+
+<p>A-instruction is used to change the content of A register,its syntax is:</p>
+
+<p><img src="/assets/images/2018/AInstruction.png" alt="ins" /></p>
+
+<p>while C-instruction is used to carry out operation,jump through program and change the content of D and M register:</p>
+
+<p><img src="/assets/images/2018/CInstruction.png" alt="ins" /></p>
+
+<p>These two kinds of instructions are all user-friendly notation for corresponding machine code,as shown above.For more information,just refer to the Nand2Tetris textbook where more details are discussed.</p>
+
+<h3 id="expanded-utilities-of-hack-assembly-language">Expanded Utilities of Hack Assembly Language</h3>
+
+<p>It’s unnecessary to provide more feature for assembly language, as is in the sentence <em>Keep it simple and stupid</em>.But with care,adding a few of them boost the process of programming.</p>
+
+<ul>
+  <li>
+    <p>The First Improvement: You may notice that <strong>A,D,M</strong> are all pre-defined symbol respectively referring to A-,D-,M- register.As long as we have symbols for certain RAM location,we can bring in more predefined ones to simplify the coding.You can refer to section 4.2.4 for more information.</p>
+  </li>
+  <li>
+    <p>The Second Improvement: We should provide the feature that is the most useful.When programming using assembly,counting the number of instructions is the greatest nuisance. A good way to get rid of it is to define a “symbol” as well.But the symbol is not for register but for instruction,and we call it <strong>label</strong>. A label represent the next following instruction and can be referred to by jump operation. It greatly reduces the time for programming.</p>
+
+    <p>Likewise,we can allow programmers to define own symbols for certain registers.The user-defined identifier (label or symbol) will make the process more automatic.See section 4.2.4 for more information</p>
+  </li>
+</ul>
+
+<p>These <strong>improvement</strong> adds up to the power of the assembly language,by which improves the efficiency.</p>
+
+<h2 id="projects">Projects</h2>
+
+<p>After fully learned the principles of assembly language,try to write programs to carry out practical opearations using hack assembly language,with specification of the project described in section 4.4</p>
+
+<h2 id="additional-points">Additional points</h2>
+
+<h4 id="completenesss-of-movand-the-instruction-set">completenesss of <em>mov</em>,and the instruction set</h4>
+
+<p><img src="/assets/images/2018/mov.png" alt="mov" /></p>
+
+<p><strong>In previous chapter</strong>,we have stated that  <strong>Nand is complete</strong> and <strong>Add is complete</strong>,.etc. What about the language part? Is a single instruction able to represent all the others?</p>
+
+<p><em>mov</em> is an instruction in <a href="https://en.wikipedia.org/wiki/X86">x86</a> architecture,Stephen Dolan has proved that by using <em>mov</em> and using it only we can represent any process that a computer can do.[3]</p>
+
+<p>However,just like we do not use Nand everytime we want to implement a chip,and do not use add always,we do not use a single instruction to carry out all the operations.Modern CPU takes several to thousands instructions as their input,and is divided to RISC and CISC accroding to the number of the instructions.Learn more from the link in [4].</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>By learning how to write programs and what is programming using Hack Assembly language,you are supposed to have basic concept of what we will do in following chapters discussing more software abstraction layers. Before we advance to next layer,we have to implement all the features we learned here in next chapter,by a program called <strong>assembler</strong>.</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] Picture from http://www.toves.org/books/java/ch01-overview/index.html</p>
+
+<p>[2] Picture from https://en.wikipedia.org/wiki/Harvard_architecture</p>
+
+<p>[3] Stephen Dolan(2013),mov is Turing-complete,Computer Laboratory, University of Cambridge.Accessible from here:https://www.cl.cam.ac.uk/~sd601/papers/mov.pdf</p>
+
+<p>[4] Wikipedia,Reduced_Instruction_set_computer,see here:https://en.wikipedia.org/wiki/Reduced_instruction_set_computer</p>
+
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/06/Print-Graph-In-Terminal/" title="在终端直接查看图片的方法">在终端直接查看图片的方法</a></h2>
+       <!--<p class="excerpt">这篇文章介绍一个在终端直接查看图片内容的脚本，依赖w3m，在终端模拟器满足色彩要求时，将图片打印到屏幕上依赖  w3m  bash脚本这个脚本参考了z3bra的博客使用w3m自带的图片查看工具，在当前终端打印图片。为了不影响后续的命令输入，默认清屏。它会根据终端的大小调整图片大小，尽量填满终端，并在下部显示新的PS1。对终端的色彩要求没有测试下面是脚本:#!/bin/bash## z3bra -- 2014-01-21# linusboyle modify this a little bi...&hellip;</p>-->
+       <p class="excerpt">描述了我修改的一个小脚本，可以在特定的终端支持直接打印出图片的内容，而不需要新的外部窗口。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-06-28 00:00:00 +0800" class="post-list__meta--date date">
+           2018-06-28
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">shell linux 脚本 w3m
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/06/The-Art-Of-MuDanTing/" title="link to 牡丹亭的思想特色">牡丹亭的思想特色</a></h2>
+       <!--<p class="excerpt">《戏曲与中国传统文化》论文《牡丹亭》的思想特色关于汤显祖著名的《牡丹亭》，数百年来已有很多人做出了精彩的解读，达到了很高成就，关于作品的思想和艺术特色，也有了较为统一的定论。试摘录一段论述如下：  ……《牡丹亭》是一曲爱情的颂歌，它鞭挞了封建礼教对青年男女自由天性的戕害．歌颂了杜丽娘对爱情的强烈渴望和至死不渝的追求，表现了那个时代青年男女追求个性解放，要求爱情自由、婚姻自主的理想世界……[1]诚然，站在今天的角度来看，《牡丹亭》的确反映了封建思想对青年男女自由思想的荼毒，追求个体解放、摆脱...&hellip;</p>-->
+       <p class="excerpt">这是本人写作的一篇十分拙劣的小型论文。我认为牡丹亭的故事是完整的，它的伟大不仅在于情感突破了理性的限制，突破生死的界限。还在于最后情感和理性不能调和的结局，透露出的无限悲剧特质。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-06-04 00:00:00 +0800" class="post-list__meta--date date">
+           2018-06-04
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">戏曲 牡丹亭 汤显祖 昆曲
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: 'Assembly Language',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

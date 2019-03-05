@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>多线程快速排序</title>
+  <meta name="description" content="多线程执行快速排序（含插入排序信息熵优化）">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="多线程快速排序">
+  <meta name="twitter:description" content="多线程执行快速排序（含插入排序信息熵优化）">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="多线程快速排序">
+  <meta property="og:description" content="多线程执行快速排序（含插入排序信息熵优化）">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/09/multithread-quick-sort/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-09-09 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-09-09
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#c++">c++</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#快速排序">快速排序</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#多线程">多线程</a></span>
+      
+    </div>
+    <h1 class="post-title">多线程快速排序</h1>
+  </header>
+
+
+  <section class="post">
+    <p>直接上代码喽</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * quick_sort.cpp
+ * Copyright (c) 2018 Linus Boyle &lt;linusboyle@gmail.com&gt;
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */</span>
+
+<span class="cp">#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;thread&gt;
+</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">MAX_THREAD</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">Thread</span><span class="p">;</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">insertSort</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">array</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">right</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
+        <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">key</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;=</span><span class="n">left</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">){</span>
+                <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="o">--</span><span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">key</span><span class="p">;</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">process</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">array</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">){</span>
+        <span class="n">insertSort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span> 
+    
+    <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">left</span><span class="p">);</span> <span class="c1">//base </span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="n">m</span><span class="p">){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">pivot</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">)</span>
+            <span class="n">m</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">pivot</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">)</span>
+            <span class="n">n</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">)</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">left</span><span class="p">),</span><span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">Thread</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+        <span class="o">--</span><span class="n">Thread</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">newThread</span><span class="p">{</span><span class="n">process</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">ref</span><span class="p">(</span><span class="n">array</span><span class="p">),</span><span class="n">left</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span> 
+        <span class="n">process</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">right</span><span class="p">);</span> 
+
+        <span class="k">if</span><span class="p">(</span><span class="n">newThread</span><span class="p">.</span><span class="n">joinable</span><span class="p">()){</span>
+            <span class="n">newThread</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">process</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">process</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">quicksort</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">array</span><span class="p">){</span>
+    <span class="n">Thread</span> <span class="o">=</span> <span class="n">MAX_THREAD</span><span class="p">;</span>
+    <span class="n">process</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;random&gt;
+#include &lt;boost/timer.hpp&gt;
+</span>
+<span class="cp">#define ARRAY_LENGTH 1000000
+</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span><span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">){</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">rd</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">mt</span><span class="p">(</span><span class="n">rd</span><span class="p">());</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;&gt;</span> <span class="n">dist</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ARRAY_LENGTH</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">ARRAY_LENGTH</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">ARRAY_LENGTH</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
+        <span class="n">array</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">mt</span><span class="p">);</span>
+    <span class="p">}</span>
+ 
+    <span class="n">boost</span><span class="o">::</span><span class="n">timer</span> <span class="n">timer</span><span class="p">;</span>
+    <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">timer</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">" elapsed"</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">//std::fstream out("result.txt",out.trunc|out.out);</span>
+    <span class="c1">//if(out.is_open())</span>
+        <span class="c1">//std::for_each(array.begin(),array.end(),[&amp;out](int x){</span>
+                <span class="c1">//out&lt;&lt;x&lt;&lt;std::endl;</span>
+        <span class="c1">//});</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>关于算法几点说明</p>
+<ul>
+  <li>单枢轴</li>
+  <li>插入排序优化（主要是测试数据量较大）</li>
+  <li>为避免多线程间通信损失，线程数最大为4</li>
+</ul>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/09/writing-my-own-tee/" title="自己动手写一个简易的tee">自己动手写一个简易的tee</a></h2>
+       <!--<p class="excerpt">teetee是脚本里很有用的工具（交互模式其实也很有用，不过我不怎么常用）。它会从标准输入读入，向标准输出和指定的文件输出实现的思路很简单，不断地读取标准输入，write至标准输出和创建的文件标识符就可以。不过这只是自己玩玩的，和GNU的tee还是差远了:)实现#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;unistd.h&gt;#include &lt;stdio.h&gt;#include &lt...&hellip;</p>-->
+       <p class="excerpt">用glibc写一个简易的tee&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-09-15 00:00:00 +0800" class="post-list__meta--date date">
+           2018-09-15
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">linux tee
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/09/magic-number-of-reboot/" title="link to reboot()系统调用的magic number">reboot()系统调用的magic number</a></h2>
+       <!--<p class="excerpt">好吧，查阅reboot系统调用的时候发现，头两个参数是两个magic number，而且限定死了值，否则就是EINVALint reboot(int magic, int magic2, int cmd, void *arg);manual这么写着：  This system call  fail  (with  the  error  EINVAL)  unless  magic  equals  LINUX_REBOOT_MAGIC1  (that  is,  0xfee1dead) ...&hellip;</p>-->
+       <p class="excerpt">挺有意思的彩蛋：）&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-09-02 00:00:00 +0800" class="post-list__meta--date date">
+           2018-09-02
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">linux 系统调用
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '多线程快速排序',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

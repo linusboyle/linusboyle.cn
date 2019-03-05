@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Machine Language</title>
+  <meta name="description" content="intro of the machine language, which is a part of the book 'Nand++' by me and other classmates">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Machine Language">
+  <meta name="twitter:description" content="intro of the machine language, which is a part of the book 'Nand++' by me and other classmates">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Machine Language">
+  <meta property="og:description" content="intro of the machine language, which is a part of the book 'Nand++' by me and other classmates">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/05/MachineCode/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-05-28 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-28
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#nand2tetris">nand2tetris</a></span>
+      
+    </div>
+    <h1 class="post-title">Machine Language</h1>
+  </header>
+
+
+  <section class="post">
+    <h1 id="machine-languageassembly-language">Machine Language&amp;Assembly Language</h1>
+
+<p>​	<em>-Now we have the computer: fully functional and powerful. But how come the machine knows what to do?</em></p>
+
+<p>​	<em>-Remember the architecture of Hack computer? It adopts the Harvard Architecture,where ROM is where the instructions are stored,and RAM contains a set of registers. You may have found the <strong>Reset</strong> button on the surface of the machine which tells the computer to start from executing the first instruction in ROM. So put the instructions in ROM and press <strong>Reset</strong> and then there will be the magic.</em></p>
+
+<p>​	<em>-Sounds great,but what on earth are the <strong>instructions</strong>?</em></p>
+
+<h2 id="instructions-in-the-rom">Instructions In The ROM</h2>
+
+<h4 id="language-in-accordance-with-the-hardware">Language in accordance with the hardware</h4>
+
+<p>Back to the early days ROM can be plugged in and removed,and inside it is the program we need. Let’s think about it: what kind of code can the computer identify and execute?</p>
+
+<p>Since you have built the CPU and known about its input,it is an easy question. It’s a string of 0s and 1s,and in this context it’s 16 bits long.You may remember the input of the ALU,which carries out the arithematical and logical operations.It also takes a set of bits as input. Actually they are a part of the machine language,as ALU is part of the CPU.The <em>whole</em> machine language contains also the code to jump - <strong>by changing the content stored in PC</strong>.</p>
+
+<p>The specification of Hack machine language is rather clear after you have built the CPU and the whole Hack computer,you may <strong>stop and think about that</strong>,and here is the graph to make your memory come back.</p>
+
+<p><img src="/assets/images/2018/CPU.png" alt="CPU" /></p>
+
+<p>You should get your hand dirty about the binary code,know about which part is manipulated by ALU and which part is used for PC.<strong>As you can see,the underlying architecture of Hack has already proposed a kind of machine language</strong>. We call it a <em>language</em>,so can this language express all the ideas we intend to tell the computer?</p>
+
+<p>The answer is <em>no</em>,because not everything can be done by computer and therefore cannot be written down as codes. What kind of problem cannot the computer solve?A famous one is the <strong><a href="https://en.wikipedia.org/wiki/Halting_problem">halting problem</a></strong>,which you should take in mind as there are some unsolvable problems.</p>
+
+<p>Let’s summarize a bit here:Machine code is powerful for opearating the computer to carry out either arithmetical or logical operations.It takes control of the computer we built in <em>chapter 5</em> and acts as a software abstraction layer over the underlying hardware.</p>
+
+<h5 id="why-do-we-need-assembly">Why do we need assembly?</h5>
+
+<p>The machine language can do various things as we stated earlier,we saw in chapter 1 that <strong>nand gate ** only can build the whole hardware needed,and in chapter 2 we saw that **Add</strong> only can be used to construct all sequential logic.<strong>What is turing complete for a language?</strong></p>
+
+<p><img src="/assets/images/2018/mov.png" alt="mov" /></p>
+
+<p><em>Stephen Dolan</em> wrote the paper <strong>mov is Turing-complete</strong>,which is not a component in machine language.We have to build a more high-level and user-friendly language over machine language,because there is <strong>no single machine code that can be used to represent the rest</strong>.And from now on,you will start the journey through <strong>software</strong>.</p>
+
+<h2 id="assembly-language">Assembly language</h2>
+
+<h4 id="overview-and-design">Overview and Design</h4>
+
+<p>So now we decide to make an assembly language for Hack machine language,what should we consider for the design?The most simple way for this is to translate the machine code to human-readable code,one by one.In this way we can design the assembly language easily,and the amount of code in assembly equals to that of the machine code.</p>
+
+<p><em>Sounds great,shall we adopt that</em>?</p>
+
+<p>There’s no harm doing that,but it will just be another form of machine code,and nothing more will be provided for the programmer.If ,say,you are planning to writing a program for Hack,assembly makes it easy to write but still it’s very annoying to do that.</p>
+
+<p>So to avoid <strong>part</strong> of the annoyance,we decide to make the assembly language provide more useful utilities.For example,to achieve the goal of implementing a loop,we can define labels in the source code and refer to them afterwards and jump backwards or forwards.What else?</p>
+
+<p>If we could define <em>variable</em> ,it will be much more convenient.But variables are more like high-level stuff and is really difficult to implement by machine code.So we choose to define alias for registers in RAM,which makes it easier to refer to a specific register there.</p>
+
+<p>**Adding more features is completely ok as it is what modern assembly does,but for simplicity we limit our footsteps here. **</p>
+
+<h4 id="specification">Specification</h4>
+
+<p>==<strong>See the textbook……</strong>==</p>
+
+<p><img src="/assets/images/2018/AInstruction.png" alt="ins" /></p>
+
+<p><img src="/assets/images/2018/CInstruction.png" alt="ins" /></p>
+
+<h4 id="connectionshow-to-implement">Connections:How to implement?</h4>
+
+<p>It’s not our business today to implement the ASCII now.However,the conversion between 0s and 1s ,and human-readable characters should be attached great importance to.What carries out this process is called an <strong>assembler</strong>,which will be built <strong>in next chapter</strong>.</p>
+
+<h3 id="logic-model">Logic Model</h3>
+
+<hr />
+
+<table>
+  <thead>
+    <tr>
+      <th>Background</th>
+      <th>The general-purpose Hack computer we built earlier, and the interface designed as the ALU’s input.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Goal</td>
+      <td>Consider again about the ALU and its input,which define a set of instructions and a machine language.Design an assembly language corresponding to this set and implement the compiler,making our first step towards software layer.</td>
+    </tr>
+    <tr>
+      <td>Input</td>
+      <td>Content:Whole Hack Computer and the ALU I/O specification.Test assembly language scripts</td>
+    </tr>
+    <tr>
+      <td>Process</td>
+      <td>Review the input bit set of ALU in Hack implementation</td>
+    </tr>
+    <tr>
+      <td>Output</td>
+      <td>Programs written inHack assembly language</td>
+    </tr>
+    <tr>
+      <td>Effect</td>
+      <td>The Hack Computer can take input as assembly language and act accordingly,which leads to later design of software.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/05/Ideal-States/" title="Ideal States: The Ultimate Utopia?">Ideal States: The Ultimate Utopia?</a></h2>
+       <!--<p class="excerpt">Foundations of Western Culture, Final Research PaperWhat Makes the Ideal StatesThe Ultimate Utopia?In the Era of Anti-UtopiaIt is said that an ideal state,or Utopia,has been proved unrealistic and useless. There have been quantities of criticism s...&hellip;</p>-->
+       <p class="excerpt">A little bit thinking about the ideal states and whether one should form his/her own one,political or not&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-05-29 00:00:00 +0800" class="post-list__meta--date date">
+           2018-05-29
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">乌托邦
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/05/Crash-Of-Zsh/" title="link to 记zsh的崩溃">记zsh的崩溃</a></h2>
+       <!--<p class="excerpt">喜欢折腾的性子总是改不了——为了在deepin上使用kali的工具，不知道怎么回事让zsh崩溃了我只用了一个主题，其他的完全按照ohmyzsh的默认来，一开始的症状是打不开终端，等到字符界面也无法进入的时候，连带我的tty1也崩溃了最终还是登上图形界面用商店装了konsole才发现zsh崩溃的问题 赶紧手动进入bash 切换到root后chsh我觉得用linux还是平实一点比较好……谨记一次教训于此补充：解决卸载zsh后vim和gdb等程序仍然使用zsh的问题：在bashrc中加入expo...&hellip;</p>-->
+       <p class="excerpt">简要记录zsh崩溃的后果和解决方案。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-05-17 00:00:00 +0800" class="post-list__meta--date date">
+           2018-05-17
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">zsh linux
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: 'Machine Language',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

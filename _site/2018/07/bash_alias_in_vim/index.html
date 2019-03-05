@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>在Vim中正确加载bash别名</title>
+  <meta name="description" content="关于如何在vim中使用bash定义的别名">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="在Vim中正确加载bash别名">
+  <meta name="twitter:description" content="关于如何在vim中使用bash定义的别名">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="在Vim中正确加载bash别名">
+  <meta property="og:description" content="关于如何在vim中使用bash定义的别名">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/07/bash_alias_in_vim/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-07-22 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-22
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#bash">bash</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#linux">linux</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#Vim">Vim</a></span>
+      
+    </div>
+    <h1 class="post-title">在Vim中正确加载bash别名</h1>
+  </header>
+
+
+  <section class="post">
+    <p>在vim里调用外部命令时使用的sh虽然不一定是bash，不过大多数情况下是的。这篇文章讨论linux的情况，在这里sh是bash的软连接。</p>
+
+<p>如果要严格设置sh的类型，加上这么一句就行了：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">g:is_bash</span>	   <span class="p">=</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p>回到别名的问题，bash在不是交互模式的情况下是不会读取.bashrc的，所以所有的用户设置自然没效果,当然，你可以设置bash -i选项来让它成为交互模式，不过想想看在vim里运行一个命令之后持续的交互模式——我想我们还是想个别的法子吧。</p>
+
+<p>比如我把grep映射到grep -i，在vim里执行内建:grep! hello 不会匹配Hello。你可以手动指定-i参数，不过这显然不是一劳永逸的方法。</p>
+
+<p>根据<a href="https://stackoverflow.com/questions/4642822/commands-executed-from-vim-are-not-recognizing-bash-command-aliases">这里</a>的解决方法，最好的办法是在<code class="highlighter-rouge">.vimrc</code>里加入：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> $BASH_ENV <span class="p">=</span> <span class="s2">"~/.bash_aliases"</span>
+</code></pre></div></div>
+
+<p>在这里我也建议把别名单独放在一个文件里，因为在诸如此类的情况下整个<code class="highlighter-rouge">.bashrc</code>是没有意义的。何况<code class="highlighter-rouge">.bashrc</code>里有一些启动时输出的命令，这可不是我们在vim里想看到的</p>
+
+<p>还有最后一件事，记得在<code class="highlighter-rouge">.bash_aliases</code>开头加上这么一句：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">shopt</span> <span class="nt">-s</span> expand_aliases 
+</code></pre></div></div>
+
+<p>bash非交互模式似乎不会设置<code class="highlighter-rouge">expand_aliases</code>选项，为保险手动设置一下</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/dpointer/" title="D-pointer的应用">D-pointer的应用</a></h2>
+       <!--<p class="excerpt">看dtk源码的时候对于其组织结构看得不是很明白，直到看了deepin官方的文档,才知道用到了Qt里常用的d-pointer技术。可能这篇文章没说很明白，这里写一下自己的一些理解。d-pointer主要是为了解决这些问题：  消除为类加入新的成员导致的偏移量改变，不再会使使用动态库的程序出错而不得不重新编译  隐藏实现细节，只在头文件里展示公有的api。头文件可以直接当作文档。简单来说d-pointer的原理就是为类设计一个私有类，通常情况下储存类的所有成员，以及一些私有的辅助函数。clas...&hellip;</p>-->
+       <p class="excerpt">关于在Qt等库中广泛应用的d-pointer&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-23 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-23
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">c++ Qt 笔记
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/alsa-mute-script/" title="link to 简易开/关静音脚本（alsa版）">简易开/关静音脚本（alsa版）</a></h2>
+       <!--<p class="excerpt">个人在i3wm环境写了超多脚本，比如这个静音：#! /bin/bash# toggle the audio output and send notification# by linusboyleamixer -q set Master toggle stat=$(amixer get Master |egrep -o '\[(on|off)\]'|head -1) if test $stat = "[on]" ; then    notify-send -i audio-ready "Au...&hellip;</p>-->
+       <p class="excerpt">一小段脚本，用来开关静音，同时发送通知。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-22 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-22
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">alsa 脚本 linux
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '在Vim中正确加载bash别名',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

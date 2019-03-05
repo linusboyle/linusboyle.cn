@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>关于Linux中min/max宏写法</title>
+  <meta name="description" content="一小段关于linux源码中min和max的正确定义的讨论">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="关于Linux中min/max宏写法">
+  <meta name="twitter:description" content="一小段关于linux源码中min和max的正确定义的讨论">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="关于Linux中min/max宏写法">
+  <meta property="og:description" content="一小段关于linux源码中min和max的正确定义的讨论">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/07/linux-macro-min-max/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-07-21 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-21
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#linux">linux</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#宏">宏</a></span>
+      
+    </div>
+    <h1 class="post-title">关于Linux中min/max宏写法</h1>
+  </header>
+
+
+  <section class="post">
+    <p><a href="http://gaomf.cn/2017/10/08/Kernel_min_max_macro/">这篇博客</a>和以往的对linux源码宏定义的解释不太一样，它所讲解的是这样一段定义：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define __min(t1, t2, min1, min2, x, y) ({              \
+	t1 min1 = (x);                                  \
+	t2 min2 = (y);                                  \
+	(void) (&amp;min1 == &amp;min2);                        \
+	min1 &lt; min2 ? min1 : min2; })
+</span>
+<span class="cp">#define ___PASTE(a,b) a##b
+#define __PASTE(a,b) ___PASTE(a,b)
+</span>
+<span class="cp">#define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __COUNTER__)
+</span>
+<span class="cp">#define min(x, y)                                       \
+	__min(typeof(x), typeof(y),                     \
+	      __UNIQUE_ID(min1_), __UNIQUE_ID(min2_),   \
+	      x, y)
+</span>
+<span class="cp">#define min_t(type, x, y)                               \
+	__min(type, type,                               \
+	      __UNIQUE_ID(min1_), __UNIQUE_ID(min2_),   \
+	      x, y)
+</span></code></pre></div></div>
+<p>详见Linux源码：tools/testing/scatterlist/linux/mm.h</p>
+
+<p>我大致搜索了一下源码，这一部分并不是真正使用的定义(就我所发现，似乎这个头文件没有被包含过)</p>
+
+<p>一般来说的定义是：</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#ifndef max
+#define max(x, y) ({				\
+	typeof(x) _max1 = (x);			\
+	typeof(y) _max2 = (y);			\
+	(void) (&amp;_max1 == &amp;_max2);		\
+	_max1 &gt; _max2 ? _max1 : _max2; })
+#endif
+</span>
+<span class="cp">#ifndef min
+#define min(x, y) ({				\
+	typeof(x) _min1 = (x);			\
+	typeof(y) _min2 = (y);			\
+	(void) (&amp;_min1 == &amp;_min2);		\
+	_min1 &lt; _min2 ? _min1 : _min2; })
+#endif
+</span></code></pre></div></div>
+
+<p>定义在tools/include/linux/kernel.h</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/ag-operator-in-vim/" title="Vim自定义配置（二）：定义ag搜索操作符">Vim自定义配置（二）：定义ag搜索操作符</a></h2>
+       <!--<p class="excerpt">vim内置的grep命令会搜索一个正则表达式，并将结果输出到quickfix。我目前使用的插件里有leaderf，这个插件的使用方式比较像quickfix，不过支持的是文件搜索（mru，buffer等）、函数列表、tag搜索。要在源代码里跳转的话，我设置了gtags和global，通过vim的cscope支持可以实现高效跳转。不过有些时候用不到tags，或者我想使用正则表达式在全代码库里搜索的情况是用不了tags的。这个时候还是需要grep的帮忙，当然，我们把grep换成了ag。版本一首先...&hellip;</p>-->
+       <p class="excerpt">通过自定义ag操作符实现快速搜索&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-22 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-22
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">Vim Vimscript ag
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/sizeof-for-incomplete-type/" title="link to 关于不完全的类型">关于不完全的类型</a></h2>
+       <!--<p class="excerpt">今天看了看qt里QScopedPointer的实现，类本身很简单，需要注意的地方是由于这是一个智能指针，在创建时需要分配内存（什么？可以是空的？没什么用……）如果代理的指针属于一个前置声明的类型，那么需要注意的是，在使用到智能指针成员的地方必须有前置类的定义。换句话说，只有在实现文件里定义构造、析构、赋值等。这里qt判断不完全类型的方法是sizeof运算符（其实不用也可以，编译器可以发现这个问题。不过在网上看到一些资料，部分编译器会让这种不完全的类型编过，所以这里用sizeof显式地要求还...&hellip;</p>-->
+       <p class="excerpt">一段很短的笔记，关于编译期的类型&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-20 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-20
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">sizeof c++ 笔记
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '关于Linux中min/max宏写法',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

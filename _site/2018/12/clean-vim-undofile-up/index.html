@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>清理Vim的历史记录文件(undofile)</title>
+  <meta name="description" content="简单快捷地清理vim编辑文件储存的undo文件">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="清理Vim的历史记录文件(undofile)">
+  <meta name="twitter:description" content="简单快捷地清理vim编辑文件储存的undo文件">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="清理Vim的历史记录文件(undofile)">
+  <meta property="og:description" content="简单快捷地清理vim编辑文件储存的undo文件">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/12/clean-vim-undofile-up/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-12-02 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-12-02
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#Vim">Vim</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#bash">bash</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#脚本">脚本</a></span>
+      
+    </div>
+    <h1 class="post-title">清理Vim的历史记录文件(undofile)</h1>
+  </header>
+
+
+  <section class="post">
+    <p>vim提供保存修改记录的机制，它可以把文件的修改历史记录在单独的undofile中。这样下一次启动vim进行编辑的时候，不会丢失缓冲区的编辑历史。</p>
+
+<p>说的具体一点，我的配置如下:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">"undo tree</span>
+<span class="k">let</span> <span class="nv">s:undo_dir</span> <span class="p">=</span> expand<span class="p">(</span><span class="s2">"~/.cache/undodir"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">!</span>isdirectory<span class="p">(</span><span class="nv">s:undo_dir</span><span class="p">)</span>
+    <span class="k">silent</span><span class="p">!</span> <span class="k">call</span> mkdir<span class="p">(</span><span class="nv">s:undo_dir</span><span class="p">,</span> <span class="s1">'p'</span><span class="p">)</span>
+<span class="k">endif</span>
+
+<span class="k">if</span> has<span class="p">(</span><span class="s2">"persistent_undo"</span><span class="p">)</span>
+    <span class="k">set</span> undodir<span class="p">=~</span><span class="sr">/.cache/</span>undodir
+    <span class="k">set</span> undofile
+<span class="k">endif</span>
+</code></pre></div></div>
+
+<p>所有的记录被统一储存在一个目录下，避免污染工作区（backup同理）</p>
+
+<p>当使用一段时间后，undofile将占据一定的空间。这其中绝大部分是没有必要的，因为</p>
+
+<ol>
+  <li>也许原来的文件早已被删除</li>
+  <li>文件已经很久没有被编辑过</li>
+  <li>…</li>
+</ol>
+
+<p>如果要按照1.来解决这个问题会比较棘手，因为vim的undofile命名方式是这样的：</p>
+
+<blockquote>
+  <p>%home%linusboyle%dev%program%dsa%pa3%max%.ycm_extra_conf.py</p>
+</blockquote>
+
+<p>并且，其中一部分文件是在临时挂载的文件系统中，要分辨源文件是否存在很困难。</p>
+
+<p>因此，我最终选择了用编辑时间来判定是否保存历史记录，bash script实现，脚本如下:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># cleans unused vim undofile </span>
+<span class="c"># This script assumes that you store undofile in a seperated directory</span>
+
+<span class="nv">UNDO_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cache/undodir"</span>
+<span class="nv">THRESHOLD</span><span class="o">=</span><span class="s2">"30"</span> <span class="c"># in day, if the last modified time is beyond this value, the undofile will be deleted</span>
+<span class="nv">REMOVE_LOG</span><span class="o">=</span><span class="s2">"/tmp/undoclean-log"</span>
+
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>65
+printhelp<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"Usage: </span><span class="sb">`</span><span class="nb">basename</span> <span class="nv">$0</span><span class="sb">`</span><span class="s2"> [THRESHOLD] [PATH]"</span>
+    <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="k">in</span>
+    <span class="s2">""</span> <span class="p">)</span> <span class="p">;;</span>
+    <span class="k">*</span><span class="o">[!</span>0-9]<span class="k">*</span> <span class="p">)</span> printhelp <span class="p">;;</span> 
+    <span class="k">*</span> <span class="p">)</span> <span class="nv">THRESHOLD</span><span class="o">=</span><span class="nv">$1</span> <span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    if</span> <span class="o">[</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span><span class="o">]</span>
+    <span class="k">then
+        </span><span class="nv">UNDO_PATH</span><span class="o">=</span><span class="nv">$2</span>
+    <span class="k">else
+        </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2"> is not a directory!"</span>
+    <span class="k">fi
+fi
+
+</span><span class="nb">echo</span> <span class="s2">"This script will deleted all the vim undo file in </span><span class="nv">$UNDO_PATH</span><span class="s2"> that has not been modified for at least </span><span class="nv">$THRESHOLD</span><span class="s2"> days"</span>
+
+find <span class="s2">"</span><span class="nv">$UNDO_PATH</span><span class="s2">"</span> <span class="nt">-mtime</span> <span class="s2">"+</span><span class="nv">$THRESHOLD</span><span class="s2">"</span> <span class="nt">-print</span> <span class="nt">-delete</span> | <span class="nb">tee</span> <span class="s2">"</span><span class="nv">$REMOVE_LOG</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="s2">"done, a log has been created at </span><span class="nv">$REMOVE_LOG</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>感谢<a href="https://www.shlomifish.org/">Shlomi Fish</a> 和 Lifepillar 在vim邮件列表的指导，我才能想到用修改时间来界定。</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/12/vim-hierarchy/" title="Vim自定义配置(三)：拆解vimrc">Vim自定义配置(三)：拆解vimrc</a></h2>
+       <!--<p class="excerpt">和emacs用户不一样，用vim的人，大部分人都会装上一大堆插件，然后在vimrc里做相应的配置。有一些经验的人可能会用注释以及marker、fold等，让他们的配置文件尽量整洁。基本上每一个刚开始接触vim的人，都是从抄别人的vimrc开始的。不过vim的自定义性要发挥地淋漓尽致，需要使用者了解vim运行环境的目录结构。前段时间我把我自己的配置全部拆开，建立了自己的vimscript插件结构。这篇文章首先解决最基础的问题：把长长的vimrc配置文件分解为插件。pluginvim的plug...&hellip;</p>-->
+       <p class="excerpt">作为vim进阶的必经之路，学会逐步放弃对插件的依赖和数千行的配置文件，能更好的帮助你打造自己独特的vim&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-12-11 00:00:00 +0800" class="post-list__meta--date date">
+           2018-12-11
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">Vim Vimscript
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/11/quicksort-optimization/" title="link to 快速排序轴点选取的优化">快速排序轴点选取的优化</a></h2>
+       <!--<p class="excerpt">快速排序的复杂度是$O(nlogn)$，一般来说比归并、堆排序要快。然而快排本身最坏情况下退化为冒泡排序，不够稳定。这种“最坏情况”源于轴点（pivot）的选取:考虑完全有序的序列{0, 1, 2, ….. n}, 如果选择最左侧的元素为轴点，每一次算法过程都会将区间分为长度为1和长度为n-1的子序列，因而复杂度是$O(n^2)$;而对于完全反序的序列{n, n-1, n-2, ….. 1, 0},如果选择最右侧的元素为轴点，区间的划分情况同样最坏。一般情况下，对应于一组可能的输入，如果轴...&hellip;</p>-->
+       <p class="excerpt">优化快速排序常数，降低比较次数的一些办法。主要是关于轴点的选取方法，如随机选取，三取样取中值，五取样划分&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-11-28 00:00:00 +0800" class="post-list__meta--date date">
+           2018-11-28
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">快速排序 算法
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '清理Vim的历史记录文件(undofile)',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

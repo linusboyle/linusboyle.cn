@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>TTY终端模拟器Fbterm相关配置</title>
+  <meta name="description" content="本文简单介绍了在framebuffer工作的终端模拟器fbterm，它能在一定程度上解决tty中文显示和输入的问题，但是却无法适应全部的要求，建议在迫不得已使用控制台时使用。本文讲解一部分设置项以供参考。">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TTY终端模拟器Fbterm相关配置">
+  <meta name="twitter:description" content="本文简单介绍了在framebuffer工作的终端模拟器fbterm，它能在一定程度上解决tty中文显示和输入的问题，但是却无法适应全部的要求，建议在迫不得已使用控制台时使用。本文讲解一部分设置项以供参考。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="TTY终端模拟器Fbterm相关配置">
+  <meta property="og:description" content="本文简单介绍了在framebuffer工作的终端模拟器fbterm，它能在一定程度上解决tty中文显示和输入的问题，但是却无法适应全部的要求，建议在迫不得已使用控制台时使用。本文讲解一部分设置项以供参考。">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/05/FBterm-Config/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-05-06 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-06
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#framebuffer">framebuffer</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#linux">linux</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#fbterm">fbterm</a></span>
+      
+    </div>
+    <h1 class="post-title">TTY终端模拟器Fbterm相关配置</h1>
+  </header>
+
+
+  <section class="post">
+    <p>tty下终端模拟器fbterm使用framebuffer工作，所以像是fbi，fbgs之类的工具是没法使用的。我使用fbterm的目的主要有两个，一个是中文支持，一个是vim插件的支持。不过目前其开发已经停止，在本机上的效果并不完美</p>
+
+<p><a href="https://wiki.archlinux.org/index.php/Fbterm">根据ArchWiki</a>，需要先进行用户组的设置，这里跳过不谈。</p>
+
+<h3 id="设置字体">设置字体</h3>
+
+<p>运行一次fbterm生成<code class="highlighter-rouge">~/.fbtermrc</code>，在其中找到<code class="highlighter-rouge">font-names=</code> 和<code class="highlighter-rouge">font-size=</code> 两个选项，可以设置字体族和字体大小</p>
+
+<h3 id="配置输入法">配置输入法</h3>
+
+<p>支持fbterm的输入法有yong，fcitx，ucimf等，比较好用的是yong</p>
+
+<p>fcitx应该也可以使用，但是用apt安装对fbterm的支持会卸载图形界面的fcitx，目前还不知道如何解决</p>
+
+<p>在fbtermrc里找到<code class="highlighter-rouge">input-method=</code> 填入输入法模块，在fbterm中按下<code class="highlighter-rouge">Ctrl+Space</code> 调用输入法。这个快捷键应该是不能更改，所以会影响输入法本身的一些功能。</p>
+
+<h3 id="中文显示问题">中文显示问题</h3>
+
+<p>虽然fbterm能正确识别中文，其显示依旧是？？？（可能是字体的原因）。不过在vim中使用输入法输入中文，显示都没有问题，这也是安装的最主要原因。</p>
+
+<p><strong><em>更新：在opensuse中能正常显示中文，应该和发行版环境有关系</em></strong></p>
+
+<h3 id="tmux">Tmux</h3>
+
+<p>在tmux中无法运行fbterm，而如果先运行fbterm再tmux，则tmux的页面在不支持中文的同时对256色的支持也会失去，这可能和bashrc的配置有关。</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/05/The-Art-Of-ShenMo-PalmarDrama-Series/" title="神魔布袋戏的艺术特色">神魔布袋戏的艺术特色</a></h2>
+       <!--<p class="excerpt">内容大纲  内容大纲  古典重光：精致典雅的神魔传奇  一往深情：神魔架构下的“情海魔涛”          千锤万凿：神魔的呈现本位                  剧集名称      发行时间      总集数                  神魔英雄传之血魔劫      2003年8月      44              神魔英雄传之情海魔涛      2004年8月      48              神魔英雄传之魔纪天下      2005年10月      30...&hellip;</p>-->
+       <p class="excerpt">本文讲解了神魔布袋戏的艺术特色，并作为为科普神魔艺术而正在筹备的视频的底稿。本人简要分析了神魔为电视布袋戏带来的变革，以及其独特的拍摄手法、剧本模式、呈现本位的价值观等。希望更多的人认识神魔这样一个优秀的电视布袋戏剧集。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-05-10 00:00:00 +0800" class="post-list__meta--date date">
+           2018-05-10
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">布袋戏 神魔布袋戏 杂谈
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/04/Comments-on-MoYunZhanTao-Eposide-123/" title="link to 神魔英雄传之魔云战韬1-3集布析">神魔英雄传之魔云战韬1-3集布析</a></h2>
+       <!--<p class="excerpt">  神魔系列创立于2003年——那是一个电视布袋戏无比辉煌的年代，在经历了《血魔劫》、《情海魔涛》、《魔纪天下》三部剧集之后，神魔成功地成为了一代戏迷心中的经典。不过，由于一些外部的（以及内部的）原因，自2005年起神魔停更了十余年。  2017年七月神魔英雄传第四部《魔云战韬》正式发布，采用了全新的网络免费观看模式。截至目前已经更新至第三集。作为神魔沉寂多年后的全新作品，魔云战韬和原有的神魔剧集有很大的不同，这篇文章简要讲述魔云战韬的故事，并向戏迷郑重推荐萧建平先生的神魔系列。内容大纲 ...&hellip;</p>-->
+       <p class="excerpt">这篇文章简要讲述魔云战韬的故事，同时回顾了神魔布袋戏三部一百二十集的剧情。通过简单地评点十年后神魔重启的新项目，希望让更多的人关注新神魔，了解神魔独特的艺术魅力。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-04-30 00:00:00 +0800" class="post-list__meta--date date">
+           2018-04-30
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">布袋戏 剧评 神魔布袋戏
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: 'TTY终端模拟器Fbterm相关配置',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

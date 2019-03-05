@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>统计二进制表示中&#39;1&#39;的数量</title>
+  <meta name="description" content="描述了三种不同复杂度的算法来解决这一问题，虽然并不清楚这一应用的实际意义">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="统计二进制表示中&#39;1&#39;的数量">
+  <meta name="twitter:description" content="描述了三种不同复杂度的算法来解决这一问题，虽然并不清楚这一应用的实际意义">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="统计二进制表示中&#39;1&#39;的数量">
+  <meta property="og:description" content="描述了三种不同复杂度的算法来解决这一问题，虽然并不清楚这一应用的实际意义">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/12/counting-bit-ones/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-12-16 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-12-16
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#算法">算法</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#位运算">位运算</a></span>
+      
+    </div>
+    <h1 class="post-title">统计二进制表示中'1'的数量</h1>
+  </header>
+
+
+  <section class="post">
+    <p>对于一个固定长度的整数，如果要统计其二进制表示中1的数目，应该如何实现？</p>
+
+<p>最简明的方法如下：</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">count</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="mh">0x1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">,</span> <span class="n">mask</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">retval</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">retval</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>迭代次数为二进制表示的长度，对于整数而言即$O(logn)$</p>
+
+<p>借助于位运算的技巧，可以改进上述算法，使得每一次迭代去除最后一位的‘1’，从而使得迭代次数降低为实际1的数目:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">count2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">retval</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">retval</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>更加高效的一种算法是在二进制位的层面上进行<strong>二分</strong>，通过分组，使得1的数目逐次相加。</p>
+
+<p>首先，我们需要这样一种mask：它以固定的步长分割0和1的部分，比如，mask(0)在32位整数上应该是：</p>
+
+<blockquote>
+  <p>01010101010101010101010101010101</p>
+</blockquote>
+
+<p>而mask(1)则是：</p>
+
+<blockquote>
+  <p>00110011001100110011001100110011</p>
+</blockquote>
+
+<p>这种二进制数可以通过除法来生成，考虑$2^n$长度的‘1’串作为除数，-1作为被除数（即二进制位全为1），则二者相除可以生成这样的串。</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mh">0x1</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">mask</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>如此，我们可以利用mask将一个数分为两组，分别对应mask的0和1，然后将这两部分的1数目相加：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">round</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">pow</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>由于我们注意到，当我们以$2^0$即1为组长时，1的数目就是当前比特位的值，因此，我们将其作为基，连续地通过执行代数运算，来统计1的数目</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">count1</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这里每一次调用round(n,c)，都假设以$2^c$为组长的部分的1的数目已经被存在相应的组内，然后在内部将相邻的组的1的数目相加。该算法巧妙地用加法实现了类似递归的过程。此方法的复杂度为$O(loglogn)$</p>
+
+<p>上述方法都可以被很轻易地拓展到更大的整数，实际上也可以用于任何对象之上。</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/12/kunqu-sifan/" title="观《孽海记・思凡》有感">观《孽海记・思凡》有感</a></h2>
+       <!--<p class="excerpt">这一折子戏三十分钟，剧情非常简单：小尼姑赵色空不愿继续苦守空门，经过一番思想斗争之后偷偷溜下山去的故事，简单来说即是“思凡”。整出戏只有色空一个角色，而且身段复杂，情绪变化比较大，表演难度高。有一句著名的“男怕《夜奔》，女怕《思凡》”即是形容表演之难。不过对于观众而言，这出戏非常流畅，从头看到尾可以说是一气呵成。其中有很多有意思的处理，所以即使没有《寻梦》那样强烈的情感表现，还是没有让观众感到无聊。不过先谈一下剧本本身，据说，这出戏是昆曲从南音吸取过来的，原来是《劝善金科》的一折。后者记录...&hellip;</p>-->
+       <p class="excerpt">看的是梁谷音老师的思凡，借着昆曲课的机会写了一点感想，很不专业，仅作个人参考用&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-12-24 00:00:00 +0800" class="post-list__meta--date date">
+           2018-12-24
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">昆曲 思凡 孽海记 戏曲
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/12/vim-hierarchy/" title="link to Vim自定义配置(三)：拆解vimrc">Vim自定义配置(三)：拆解vimrc</a></h2>
+       <!--<p class="excerpt">和emacs用户不一样，用vim的人，大部分人都会装上一大堆插件，然后在vimrc里做相应的配置。有一些经验的人可能会用注释以及marker、fold等，让他们的配置文件尽量整洁。基本上每一个刚开始接触vim的人，都是从抄别人的vimrc开始的。不过vim的自定义性要发挥地淋漓尽致，需要使用者了解vim运行环境的目录结构。前段时间我把我自己的配置全部拆开，建立了自己的vimscript插件结构。这篇文章首先解决最基础的问题：把长长的vimrc配置文件分解为插件。pluginvim的plug...&hellip;</p>-->
+       <p class="excerpt">作为vim进阶的必经之路，学会逐步放弃对插件的依赖和数千行的配置文件，能更好的帮助你打造自己独特的vim&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-12-11 00:00:00 +0800" class="post-list__meta--date date">
+           2018-12-11
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">Vim Vimscript
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '统计二进制表示中&#39;1&#39;的数量',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

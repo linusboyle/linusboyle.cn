@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>单线程固定大小内存池&amp;&amp;C++内存分配的初步理解</title>
+  <meta name="description" content="本文简单介绍了c++ new/delete的展开，一些初步的内存分配。实现了单线程固定大小的内存池。">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="单线程固定大小内存池&amp;&amp;C++内存分配的初步理解">
+  <meta name="twitter:description" content="本文简单介绍了c++ new/delete的展开，一些初步的内存分配。实现了单线程固定大小的内存池。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="单线程固定大小内存池&amp;&amp;C++内存分配的初步理解">
+  <meta property="og:description" content="本文简单介绍了c++ new/delete的展开，一些初步的内存分配。实现了单线程固定大小的内存池。">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/07/MemoryPool-And-Allocation/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-07-02 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-02
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#c++">c++</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#内存池">内存池</a></span>
+      
+    </div>
+    <h1 class="post-title">单线程固定大小内存池&&C++内存分配的初步理解</h1>
+  </header>
+
+
+  <section class="post">
+    <h3 id="关键字newdelete的展开">关键字new、delete的展开</h3>
+
+<p>new和delete是c++的关键字，只不过和其他关键字不同，使用这两个词需必须实现特定的运算符重载。一般来说我们给一个类的对象分配或回收内存会这么写：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Foo</span><span class="o">*</span> <span class="n">foo</span><span class="o">=</span><span class="k">new</span> <span class="n">Foo</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
+<span class="n">Foo</span><span class="o">*</span> <span class="n">foo2</span><span class="o">=</span><span class="k">new</span> <span class="n">Foo</span><span class="p">[</span><span class="n">count</span><span class="p">];</span>
+
+<span class="k">delete</span> <span class="n">foo</span><span class="p">;</span>
+<span class="k">delete</span><span class="p">[]</span> <span class="n">foo2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>上述语句由c++语法规定，被编译器展开为下述形式：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span><span class="o">*</span> <span class="n">tmp</span><span class="o">=</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Foo</span><span class="p">));</span>
+<span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Foo</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span><span class="c1">//这里的意思是在这块内存空间调用构造函数实际生成对象，伪代码写法</span>
+<span class="n">Foo</span><span class="o">*</span> <span class="n">foo</span><span class="o">=</span><span class="p">(</span><span class="n">Foo</span><span class="o">*</span><span class="p">)</span><span class="n">tmp</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="n">tmp2</span><span class="o">=</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="n">count</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span><span class="o">+</span><span class="n">overhead</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="o">=</span><span class="n">tmp2</span><span class="p">;</span>
+<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">Foo</span><span class="p">();</span>
+<span class="n">ptr</span><span class="o">+=</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Foo</span><span class="p">);</span>
+<span class="p">...;</span><span class="c1">//构建一系列对象</span>
+<span class="n">Foo</span><span class="o">*</span> <span class="n">foo2</span><span class="o">=</span><span class="p">(</span><span class="n">Foo</span><span class="o">*</span><span class="p">)</span><span class="n">tmp2</span><span class="p">;</span>
+
+<span class="n">foo</span><span class="o">-&gt;~</span><span class="n">Foo</span><span class="p">();</span>
+<span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+
+<span class="n">ptr</span><span class="o">=</span><span class="n">foo2</span><span class="p">;</span>
+<span class="n">ptr</span><span class="o">-&gt;~</span><span class="n">Foo</span><span class="p">();</span>
+<span class="n">ptr</span><span class="o">+=</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Foo</span><span class="p">);</span>
+<span class="p">...;</span><span class="c1">//全部析构</span>
+<span class="k">operator</span> <span class="k">delete</span><span class="p">[](</span><span class="n">foo2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>也就是说，应用new和delete关键字，会隐式调用operator new和operator delete（new[]、delete[]实际上是在调用new和delete分配内存，只是之后的构建对象的方式不太一样）。在c++标准库实现了全局的new和delete运算符（运算符和关键字是不同的）。如果有一段程序没有使用标准库，那么也无法通过new和delete动态分配内存，和C不使用malloc/free是一样的。</p>
+
+<p>clang的实现如下：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="o">*</span>
+<span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="n">_THROW_BAD_ALLOC</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// If malloc fails and there is a new_handler,</span>
+        <span class="c1">// call it to try free up memory.</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">new_handler</span> <span class="n">nh</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">get_new_handler</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nh</span><span class="p">)</span>
+            <span class="n">nh</span><span class="p">();</span>
+        <span class="k">else</span>
+<span class="cp">#ifndef _LIBCPP_NO_EXCEPTIONS
+</span>            <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">();</span>
+<span class="cp">#else
+</span>            <span class="k">break</span><span class="p">;</span>
+<span class="cp">#endif
+</span>    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">_LIBCPP_WEAK</span>
+<span class="kt">void</span>
+<span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="n">_NOEXCEPT</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span><span class="p">)</span>
+        <span class="o">::</span><span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这是全局函数，并不在std命名空间里。因为不是通过模板写的，所以在libc++或者libstdc++中以二进制文件提供。一般程序所用到的就是全局的运算符重载，从本质上来说还是c的malloc/free，只是针对c++面向对象的特性，自动化地调用构造函数、析构函数，在内存正确地创建或释放对象。STL的内存分配器中的一种就是对全局operator new/delete的包装（也有一种对malloc/free的包装）。</p>
+
+<h3 id="单线程固定大小内存池">单线程固定大小内存池</h3>
+
+<p>全局的重载需要考虑各种情况，并行、对齐、异常处理等等。很多这些特性并不是必要的，这里介绍通过重载类的operator new/delete 实现更快速高效的内存分配。先尝试对单一类设计单线程内存池，因为只对一个特定类有效，其分配的内存当然是固定大小的。</p>
+
+<p>考虑复数类：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Complex</span><span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+  	<span class="kt">double</span> <span class="n">_a</span><span class="p">;</span><span class="c1">//a+bi</span>
+  	<span class="kt">double</span> <span class="n">_b</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span>
+  	<span class="n">Complex</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span><span class="kt">double</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">_a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">_b</span><span class="p">(</span><span class="n">b</span><span class="p">){};</span>
+  	<span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+    	<span class="k">return</span> <span class="n">Complex</span><span class="p">(</span><span class="n">_a</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_a</span><span class="o">-</span><span class="n">_b</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_b</span><span class="p">,</span><span class="n">_a</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_b</span><span class="o">+</span><span class="n">_b</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_a</span><span class="p">);</span>
+  	<span class="p">}</span>
+	<span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">,</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span><span class="p">);</span>
+  	<span class="k">friend</span> <span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span><span class="p">,</span><span class="n">Complex</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="n">from</span><span class="p">){</span>
+	<span class="n">out</span><span class="o">&lt;&lt;</span><span class="n">from</span><span class="p">.</span><span class="n">_a</span><span class="o">&lt;&lt;</span><span class="s">"+"</span><span class="o">&lt;&lt;</span><span class="n">from</span><span class="p">.</span><span class="n">_b</span><span class="o">&lt;&lt;</span><span class="s">"i"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span><span class="n">Complex</span><span class="o">&amp;</span> <span class="n">to</span><span class="p">){</span> 
+  	<span class="n">in</span><span class="o">&gt;&gt;</span><span class="n">to</span><span class="p">.</span><span class="n">_a</span><span class="o">&gt;&gt;</span><span class="n">to</span><span class="p">.</span><span class="n">_b</span><span class="p">;</span>
+  	<span class="k">return</span> <span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>现在要为这个单一类设计内存池，简单的做法是给类添加静态方法和成员，组成内存池，这样不需要单独的内存池类的功能。写一个辅助类链表完成：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="k">class</span> <span class="nc">NextInList</span><span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+  	<span class="n">NextInList</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Complex</span><span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+  	<span class="kt">double</span> <span class="n">_a</span><span class="p">;</span><span class="c1">//a+bi</span>
+  	<span class="kt">double</span> <span class="n">_b</span><span class="p">;</span>
+  	<span class="k">static</span> <span class="kt">void</span> <span class="n">expand</span><span class="p">(){</span>
+    	<span class="kt">size_t</span> <span class="n">size</span><span class="o">=</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Complex</span><span class="p">)</span><span class="o">&gt;</span><span class="k">sizeof</span><span class="p">(</span><span class="n">NextInList</span><span class="p">)</span><span class="o">?</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Complex</span><span class="p">)</span><span class="o">:</span><span class="k">sizeof</span><span class="p">(</span><span class="n">NextInList</span><span class="p">);</span>
+      	
+      	<span class="n">NextInList</span><span class="o">*</span> <span class="n">ptr</span><span class="o">=</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NextInList</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">size</span><span class="p">]));</span>
+      	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">EXPANSION_SIZE</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span> 
+        	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NextInList</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">size</span><span class="p">]));</span>
+          	<span class="n">ptr</span><span class="o">=</span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+      	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="nb">nullptr</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="k">enum</span><span class="p">{</span>
+		<span class="n">EXPANSION_SIZE</span><span class="o">=</span><span class="mi">32</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="k">public</span><span class="o">:</span>
+  	<span class="n">Complex</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span><span class="kt">double</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">_a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="n">_b</span><span class="p">(</span><span class="n">b</span><span class="p">){};</span>
+  	<span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+    	<span class="k">return</span> <span class="n">Complex</span><span class="p">(</span><span class="n">_a</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_a</span><span class="o">-</span><span class="n">_b</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_b</span><span class="p">,</span><span class="n">_a</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_b</span><span class="o">+</span><span class="n">_b</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">_a</span><span class="p">);</span>
+  	<span class="p">}</span>
+	<span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">,</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span><span class="p">);</span>
+  	<span class="k">friend</span> <span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span><span class="p">,</span><span class="n">Complex</span><span class="o">&amp;</span><span class="p">);</span>
+  
+  	<span class="k">static</span> <span class="n">NextInList</span><span class="o">*</span> <span class="n">list</span><span class="p">;</span>
+  	<span class="k">static</span> <span class="kt">void</span> <span class="n">newMemPool</span><span class="p">(){</span>
+    	<span class="n">expand</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	<span class="k">static</span> <span class="kt">void</span> <span class="n">delMemPool</span><span class="p">(){</span>
+    	<span class="n">NextInList</span><span class="o">*</span> <span class="n">ptr</span><span class="o">=</span><span class="n">list</span><span class="p">;</span>
+      	<span class="k">while</span><span class="p">(</span><span class="n">ptr</span><span class="p">){</span>
+        	<span class="n">list</span><span class="o">=</span><span class="n">list</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+          	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr</span><span class="p">;</span>
+          	<span class="n">ptr</span><span class="o">=</span><span class="n">list</span><span class="p">;</span>
+      	<span class="p">}</span>
+  	<span class="p">}</span>
+  	<span class="kr">inline</span> <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">){</span>
+    	<span class="k">if</span><span class="p">(</span><span class="n">list</span><span class="o">==</span><span class="nb">nullptr</span><span class="p">){</span> 
+        	<span class="n">expand</span><span class="p">();</span>
+        <span class="p">}</span>
+      	
+      	<span class="n">NextInList</span><span class="o">*</span> <span class="n">head</span><span class="o">=</span><span class="n">list</span><span class="p">;</span>
+      	<span class="n">list</span><span class="o">=</span><span class="n">list</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+      	
+      	<span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	<span class="kr">inline</span> <span class="kt">void</span> <span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">doomed</span><span class="p">,</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">){</span> 
+    	<span class="n">NextInList</span><span class="o">*</span> <span class="n">head</span><span class="o">=</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NextInList</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">doomed</span><span class="p">);</span>
+      	<span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">list</span><span class="p">;</span>
+      	<span class="n">list</span><span class="o">=</span><span class="n">head</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span><span class="k">const</span> <span class="n">Complex</span><span class="o">&amp;</span> <span class="n">from</span><span class="p">){</span>
+	<span class="n">out</span><span class="o">&lt;&lt;</span><span class="n">from</span><span class="p">.</span><span class="n">_a</span><span class="o">&lt;&lt;</span><span class="s">"+"</span><span class="o">&lt;&lt;</span><span class="n">from</span><span class="p">.</span><span class="n">_b</span><span class="o">&lt;&lt;</span><span class="s">"i"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span><span class="n">Complex</span><span class="o">&amp;</span> <span class="n">to</span><span class="p">){</span> 
+  	<span class="n">in</span><span class="o">&gt;&gt;</span><span class="n">to</span><span class="p">.</span><span class="n">_a</span><span class="o">&gt;&gt;</span><span class="n">to</span><span class="p">.</span><span class="n">_b</span><span class="p">;</span>
+  	<span class="k">return</span> <span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Complex</span><span class="o">::</span><span class="n">list</span><span class="o">=</span><span class="nb">nullptr</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>测试效率：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;boost/timer&gt;
+#include &lt;iostream&gt;
+#include "Complex.h"
+</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="n">Complex</span><span class="o">*</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
+  	<span class="n">boost</span><span class="o">::</span><span class="n">timer</span> <span class="n">timer</span><span class="p">;</span>
+  	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">500</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span> 
+        	<span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="k">new</span> <span class="n">Complex</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+        <span class="p">}</span>
+      	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span> 
+        	<span class="k">delete</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+  	<span class="p">}</span>
+  	<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">timer</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个内存池只能增大，不能缩小，应付这种工作倒是足够了，不过这种实现方法并不是特别优雅。粗略更改数组大小可以得知，在数据量较大的时候内存池的优势比较明显。这种实现方法是《提高c++性能的编程艺术》这本书使用的，现在看上去并不是几个数量级的差，或许现在的标准库已经作了优化吧。</p>
+
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/Print-Tuple/" title="遍历std::tuple">遍历std::tuple</a></h2>
+       <!--<p class="excerpt">在c++中遍历元组的基本方法,最终实现传入任意函数对象作用于元组的元素打印元组这里用cout举例，提供一种方法遍历元组的元素并依次输出，显然这需要可变参数和递归。首先定义一个辅助函数确定数组大小：(这里参考了Rajasekharan Vengalil的博客 ) template&lt;typename... Ts&gt; void print(std::tuple&lt;Ts...&gt;&amp;&amp; t) {     constexpr auto size = std::tupl...&hellip;</p>-->
+       <p class="excerpt">本文讨论了泛型编程中遍历tuple元素，应用自定义函数对象的方法。实现了针对tuple的for_each函数&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-03 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-03
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">c++ 模板
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/06/Print-Graph-In-Terminal/" title="link to 在终端直接查看图片的方法">在终端直接查看图片的方法</a></h2>
+       <!--<p class="excerpt">这篇文章介绍一个在终端直接查看图片内容的脚本，依赖w3m，在终端模拟器满足色彩要求时，将图片打印到屏幕上依赖  w3m  bash脚本这个脚本参考了z3bra的博客使用w3m自带的图片查看工具，在当前终端打印图片。为了不影响后续的命令输入，默认清屏。它会根据终端的大小调整图片大小，尽量填满终端，并在下部显示新的PS1。对终端的色彩要求没有测试下面是脚本:#!/bin/bash## z3bra -- 2014-01-21# linusboyle modify this a little bi...&hellip;</p>-->
+       <p class="excerpt">描述了我修改的一个小脚本，可以在特定的终端支持直接打印出图片的内容，而不需要新的外部窗口。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-06-28 00:00:00 +0800" class="post-list__meta--date date">
+           2018-06-28
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">shell linux 脚本 w3m
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: '单线程固定大小内存池&amp;&amp;C++内存分配的初步理解',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Vim自定义配置（二）：定义ag搜索操作符</title>
+  <meta name="description" content="通过自定义ag操作符实现快速搜索">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vim自定义配置（二）：定义ag搜索操作符">
+  <meta name="twitter:description" content="通过自定义ag操作符实现快速搜索">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Vim自定义配置（二）：定义ag搜索操作符">
+  <meta property="og:description" content="通过自定义ag操作符实现快速搜索">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/07/ag-operator-in-vim/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-07-22 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-22
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#Vim">Vim</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#Vimscript">Vimscript</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#ag">ag</a></span>
+      
+    </div>
+    <h1 class="post-title">Vim自定义配置（二）：定义ag搜索操作符</h1>
+  </header>
+
+
+  <section class="post">
+    <p>vim内置的grep命令会搜索一个正则表达式，并将结果输出到quickfix。</p>
+
+<p>我目前使用的插件里有leaderf，这个插件的使用方式比较像quickfix，不过支持的是文件搜索（mru，buffer等）、函数列表、tag搜索。要在源代码里跳转的话，我设置了gtags和global，通过vim的cscope支持可以实现高效跳转。不过有些时候用不到tags，或者我想使用正则表达式在全代码库里搜索的情况是用不了tags的。这个时候还是需要grep的帮忙，当然，我们把grep换成了ag。</p>
+
+<h3 id="版本一">版本一</h3>
+
+<p>首先是改一些设定（vim的quickfix只有cscope、make、grep和cfile能写入，其实挺有局限的，否则我更倾向于调用外部的ag，毕竟ag和grep的参数又不完全兼容）</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" program used when running :grep</span>
+<span class="k">set</span> grepprg<span class="p">=</span>ag\ <span class="p">--</span><span class="k">vimgrep</span>
+</code></pre></div></div>
+
+<p>接着可以按照老套路写一个vim操作符：</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" grep operator</span>
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:</span><span class="k">set</span> operatorfunc<span class="p">=</span>GrepOperator<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span><span class="k">g</span>@
+vnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">u</span><span class="p">&gt;</span><span class="k">call</span> GrepOperator<span class="p">(</span>visualmode<span class="p">())&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+
+<span class="k">function</span><span class="p">!</span> GrepOperator<span class="p">(</span>type<span class="p">)</span>
+    <span class="k">let</span> saved_unnamed_register <span class="p">=</span> @@
+
+    <span class="k">if</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'v'</span>
+        normal<span class="p">!</span> `<span class="p">&lt;</span><span class="k">v</span>`<span class="p">&gt;</span><span class="k">y</span>
+    <span class="k">elseif</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'char'</span>
+        normal<span class="p">!</span> `<span class="p">[</span><span class="k">v</span>`<span class="p">]</span><span class="k">y</span>
+    <span class="k">else</span>
+        <span class="c">"ignore multiline mode,just because it's not useful</span>
+        <span class="k">return</span>
+    <span class="k">endif</span>
+
+    <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span>
+
+    <span class="k">copen</span>
+    <span class="k">let</span> @@ <span class="p">=</span> saved_unnamed_register
+<span class="k">endfunction</span>
+</code></pre></div></div>
+
+<p>很简单的代码，应该不难懂。不过功能还是不太完善，基本上我用到ag的情况，都是要对整个代码库进行搜索，但是这只对当前目录进行了搜索，所以需要一个向上查找根目录的脚本</p>
+
+<h3 id="版本二">版本二</h3>
+
+<p>一个简单的bash脚本：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /bin/bash</span>
+<span class="c"># a small script to find root</span>
+<span class="c"># the root is defind as .git or .svn or .root</span>
+<span class="c"># by linusboyle</span>
+
+<span class="nv">found</span><span class="o">=</span><span class="s2">"false"</span>
+
+<span class="nb">ls</span> <span class="nt">-1a</span> |egrep <span class="s2">"^(.root|.git|.svn)+$"</span> <span class="o">&gt;</span>/dev/null 2&gt;&amp;1 <span class="o">&amp;&amp;</span> <span class="nv">found</span><span class="o">=</span><span class="s2">"true"</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$found</span> <span class="o">==</span> <span class="s2">"false"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> <span class="o">!=</span> <span class="s2">"/"</span> <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">cd</span> ..
+    <span class="nb">ls</span> <span class="nt">-1a</span> |egrep <span class="s2">"^(.root|.git|.svn)+$"</span> <span class="o">&gt;</span>/dev/null 2&gt;&amp;1 <span class="o">&amp;&amp;</span> <span class="nv">found</span><span class="o">=</span><span class="s2">"true"</span>
+<span class="k">done
+
+if</span> <span class="o">[</span> <span class="nv">$found</span> <span class="o">==</span> <span class="s2">"true"</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+    <span class="c">#absolute path</span>
+    <span class="nb">pwd
+</span><span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"not found"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>为什么不用vimscript写？因为我不会……我所能想到的只有通过不断调用cd和ls和egrep，或者用find？那这样不如一次性解决，性能可能还要好些。</p>
+
+<p>然后我们修改这个操作符：</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" grep operator</span>
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:</span><span class="k">set</span> operatorfunc<span class="p">=</span>GrepOperator<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span><span class="k">g</span>@
+vnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">u</span><span class="p">&gt;</span><span class="k">call</span> GrepOperator<span class="p">(</span>visualmode<span class="p">())&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+
+<span class="k">function</span><span class="p">!</span> GrepOperator<span class="p">(</span>type<span class="p">)</span>
+    <span class="k">if</span> executable<span class="p">(</span><span class="s1">'find_root'</span><span class="p">)</span>
+        <span class="k">let</span> saved_unnamed_register <span class="p">=</span> @@
+        <span class="k">let</span> project_root<span class="p">=</span>systemlist<span class="p">(</span><span class="s1">'find_root'</span><span class="p">)[</span><span class="m">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'v'</span>
+            normal<span class="p">!</span> `<span class="p">&lt;</span><span class="k">v</span>`<span class="p">&gt;</span><span class="k">y</span>
+        <span class="k">elseif</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'char'</span>
+            normal<span class="p">!</span> `<span class="p">[</span><span class="k">v</span>`<span class="p">]</span><span class="k">y</span>
+        <span class="k">else</span>
+            <span class="c">"ignore multiline mode,just because it's not useful</span>
+            <span class="k">return</span>
+        <span class="k">endif</span>
+
+        <span class="k">if</span> <span class="k">l</span><span class="p">:</span>project_root <span class="p">==</span># <span class="s1">'not found'</span>
+            <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span>
+        <span class="k">else</span>
+            <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span> <span class="p">.</span> <span class="s2">" "</span><span class="p">.</span> project_root
+        <span class="k">endif</span>
+
+        <span class="k">copen</span>
+        <span class="k">let</span> @@ <span class="p">=</span> saved_unnamed_register
+    <span class="k">else</span>
+        echo <span class="s2">"missing find_root script,u reinstall the system again?"</span>
+        <span class="k">return</span> 
+    <span class="k">endif</span>
+<span class="k">endfunction</span>
+</code></pre></div></div>
+<p>那句很皮的话是用来提醒我这个记性差的人的，忽略之:)</p>
+
+<p>使用systemlist而不是system是因为后者会输出一个空行，既然我已经知道脚本一定会有标准输出，那么用列表的方式就是安全的，直接取数组首位得到没有空行的字符串。</p>
+
+<p>看上去没什么问题，实战用起来也不错，不过还是有一些瑕疵，现在的搜索是基于vim的pwd，而不是文件所在位置，像我这种人经常在vim里多开项目。这也简单，修改脚本，接受一个起始目录即可</p>
+
+<h3 id="版本三">版本三</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /bin/bash</span>
+<span class="c"># a small script to find root</span>
+<span class="c"># the root is defind as .git or .svn or .root</span>
+<span class="c"># by linusboyle</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">==</span> 1 <span class="o">]</span><span class="p">;</span><span class="k">then
+    if </span><span class="nb">test</span> <span class="nt">-f</span> <span class="nv">$1</span><span class="p">;</span><span class="k">then
+        </span><span class="nv">base_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">dirname</span> <span class="nv">$1</span><span class="k">)</span>
+    <span class="k">elif </span><span class="nb">test</span> <span class="nt">-d</span> <span class="nv">$1</span><span class="p">;</span><span class="k">then
+        </span><span class="nv">base_dir</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="k">else
+        </span><span class="nb">exit </span>1
+    <span class="k">fi
+else
+    </span><span class="nv">base_dir</span><span class="o">=</span><span class="nv">$PWD</span>
+<span class="k">fi
+
+</span><span class="nb">cd</span> <span class="nv">$base_dir</span>
+
+<span class="nv">found</span><span class="o">=</span><span class="s2">"false"</span>
+
+<span class="k">function </span>test_root<span class="o">(){</span>
+    <span class="nb">ls</span> <span class="nt">-1a</span> |egrep <span class="s2">"^(.root|.git|.svn)+$"</span> <span class="o">&gt;</span>/dev/null 2&gt;&amp;1 <span class="o">&amp;&amp;</span> <span class="nv">found</span><span class="o">=</span><span class="s2">"true"</span>
+<span class="o">}</span>
+
+test_root
+
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$found</span> <span class="o">==</span> <span class="s2">"false"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="nv">$PWD</span> <span class="o">!=</span> <span class="s2">"/"</span> <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">cd</span> ..
+    test_root
+<span class="k">done
+
+if</span> <span class="o">[</span> <span class="nv">$found</span> <span class="o">==</span> <span class="s2">"true"</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+    <span class="c">#absolute path</span>
+    <span class="nb">pwd
+</span><span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"not found"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>最终版：</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" grep operator</span>
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:</span><span class="k">set</span> operatorfunc<span class="p">=</span>GrepOperator<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span><span class="k">g</span>@
+vnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">u</span><span class="p">&gt;</span><span class="k">call</span> GrepOperator<span class="p">(</span>visualmode<span class="p">())&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+
+<span class="k">function</span><span class="p">!</span> GrepOperator<span class="p">(</span>type<span class="p">)</span>
+    <span class="k">if</span> executable<span class="p">(</span><span class="s1">'find_root'</span><span class="p">)</span>
+        <span class="k">let</span> saved_unnamed_register <span class="p">=</span> @@
+        <span class="k">let</span> project_root<span class="p">=</span>systemlist<span class="p">(</span><span class="s1">'find_root '</span><span class="p">.</span>expand<span class="p">(</span><span class="s1">'%'</span><span class="p">))[</span><span class="m">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'v'</span>
+            normal<span class="p">!</span> `<span class="p">&lt;</span><span class="k">v</span>`<span class="p">&gt;</span><span class="k">y</span>
+        <span class="k">elseif</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'char'</span>
+            normal<span class="p">!</span> `<span class="p">[</span><span class="k">v</span>`<span class="p">]</span><span class="k">y</span>
+        <span class="k">else</span>
+            <span class="c">"ignore multiline mode,just because it's not useful</span>
+            <span class="k">return</span>
+        <span class="k">endif</span>
+
+        <span class="k">if</span> <span class="k">l</span><span class="p">:</span>project_root <span class="p">==</span># <span class="s1">'not found'</span>
+            <span class="c">"search in current dir</span>
+            <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span>
+        <span class="k">else</span>
+            <span class="c">"else search in root dir</span>
+            <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span> <span class="p">.</span> <span class="s2">" "</span><span class="p">.</span> project_root
+        <span class="k">endif</span>
+
+        <span class="k">copen</span>
+        <span class="k">let</span> @@ <span class="p">=</span> saved_unnamed_register
+    <span class="k">else</span>
+        echo <span class="s2">"missing find_root script,u reinstall the system again?"</span>
+        <span class="k">return</span> 
+    <span class="k">endif</span>
+<span class="k">endfunction</span>
+</code></pre></div></div>
+
+<h3 id="版本四纯vimscrippt">版本四：纯vimscrippt</h3>
+
+<p>ok，我总算知道怎么用vimscript找项目根目录了，现在替换成纯vimscript写法：</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span><span class="p">!</span> Find_project_root<span class="p">()</span>
+
+    <span class="k">let</span> <span class="k">l</span><span class="p">:</span>path <span class="p">=</span> simplify<span class="p">(</span>expand<span class="p">(</span><span class="s2">"%:p:h"</span><span class="p">))</span>
+    <span class="k">let</span> <span class="k">l</span><span class="p">:</span>previous_path <span class="p">=</span> <span class="s2">""</span>
+    <span class="k">let</span> <span class="k">l</span><span class="p">:</span>markers <span class="p">=</span> <span class="p">[</span><span class="s1">'.root'</span><span class="p">,</span><span class="s1">'.git'</span><span class="p">,</span><span class="s1">'.svn'</span><span class="p">]</span>
+
+    <span class="k">while</span> <span class="k">l</span><span class="p">:</span>path <span class="p">!=</span> <span class="k">l</span><span class="p">:</span>previous_path
+        <span class="k">for</span> root <span class="k">in</span> <span class="k">l</span><span class="p">:</span>markers
+            <span class="k">if</span> <span class="p">!</span>empty<span class="p">(</span>globpath<span class="p">(</span><span class="k">l</span><span class="p">:</span>path<span class="p">,</span> root<span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+                <span class="k">let</span> <span class="k">l</span><span class="p">:</span>proj_dir <span class="p">=</span> simplify<span class="p">(</span>fnamemodify<span class="p">(</span><span class="k">l</span><span class="p">:</span>path<span class="p">,</span> <span class="s1">':p'</span><span class="p">))</span>
+                <span class="k">if</span> <span class="k">l</span><span class="p">:</span>proj_dir <span class="p">==</span> <span class="s1">'/'</span>
+                    <span class="k">return</span> <span class="s2">""</span>
+                <span class="k">endif</span>
+                <span class="k">return</span> <span class="k">l</span><span class="p">:</span>proj_dir
+            <span class="k">endif</span>
+        <span class="k">endfor</span>
+        <span class="k">let</span> <span class="k">l</span><span class="p">:</span>previous_path <span class="p">=</span> <span class="k">l</span><span class="p">:</span>path
+        <span class="k">let</span> <span class="k">l</span><span class="p">:</span>path <span class="p">=</span> fnamemodify<span class="p">(</span><span class="k">l</span><span class="p">:</span>path<span class="p">,</span> <span class="s1">':h'</span><span class="p">)</span>
+    <span class="k">endwhile</span>
+    <span class="k">return</span> <span class="s2">""</span>
+<span class="k">endfunction</span>
+
+<span class="c">" grep operator</span>
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:</span><span class="k">set</span> operatorfunc<span class="p">=</span>GrepOperator<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span><span class="k">g</span>@
+vnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">g</span> <span class="p">:&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">u</span><span class="p">&gt;</span><span class="k">call</span> GrepOperator<span class="p">(</span>visualmode<span class="p">())&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+
+<span class="k">function</span><span class="p">!</span> GrepOperator<span class="p">(</span>type<span class="p">)</span>
+    <span class="k">let</span> saved_unnamed_register <span class="p">=</span> @@
+    <span class="k">let</span> project_root<span class="p">=</span>Find_project_root<span class="p">()</span>
+
+    <span class="k">if</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'v'</span>
+        normal<span class="p">!</span> `<span class="p">&lt;</span><span class="k">v</span>`<span class="p">&gt;</span><span class="k">y</span>
+    <span class="k">elseif</span> <span class="nv">a:type</span> <span class="p">==</span># <span class="s1">'char'</span>
+        normal<span class="p">!</span> `<span class="p">[</span><span class="k">v</span>`<span class="p">]</span><span class="k">y</span>
+    <span class="k">else</span>
+        <span class="c">"ignore multiline mode,just because it's not useful</span>
+        <span class="k">return</span>
+    <span class="k">endif</span>
+
+    <span class="k">if</span> empty<span class="p">(</span><span class="k">l</span><span class="p">:</span>project_root<span class="p">)</span>
+        <span class="c">"search in current dir</span>
+        <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span>
+    <span class="k">else</span>
+        <span class="c">"else search in root dir</span>
+        <span class="k">silent</span><span class="p">!</span> execute <span class="s2">"grep! "</span> <span class="p">.</span> shellescape<span class="p">(</span>@@<span class="p">)</span> <span class="p">.</span> <span class="s2">" "</span><span class="p">.</span> project_root
+    <span class="k">endif</span>
+
+    <span class="k">let</span> @@ <span class="p">=</span> saved_unnamed_register
+<span class="k">endfunction</span>
+</code></pre></div></div>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/alsa-mute-script/" title="简易开/关静音脚本（alsa版）">简易开/关静音脚本（alsa版）</a></h2>
+       <!--<p class="excerpt">个人在i3wm环境写了超多脚本，比如这个静音：#! /bin/bash# toggle the audio output and send notification# by linusboyleamixer -q set Master toggle stat=$(amixer get Master |egrep -o '\[(on|off)\]'|head -1) if test $stat = "[on]" ; then    notify-send -i audio-ready "Au...&hellip;</p>-->
+       <p class="excerpt">一小段脚本，用来开关静音，同时发送通知。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-22 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-22
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">alsa 脚本 linux
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/linux-macro-min-max/" title="link to 关于Linux中min/max宏写法">关于Linux中min/max宏写法</a></h2>
+       <!--<p class="excerpt">这篇博客和以往的对linux源码宏定义的解释不太一样，它所讲解的是这样一段定义：#define __min(t1, t2, min1, min2, x, y) ({              \	t1 min1 = (x);                                  \	t2 min2 = (y);                                  \	(void) (&amp;min1 == &amp;min2);                 ...&hellip;</p>-->
+       <p class="excerpt">一小段关于linux源码中min和max的正确定义的讨论&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-21 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-21
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">linux 宏
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: 'Vim自定义配置（二）：定义ag搜索操作符',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>

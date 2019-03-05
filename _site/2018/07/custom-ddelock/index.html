@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Scrot+ImageMagick增强dde-lock</title>
+  <meta name="description" content="增强（或者说美化）deepin桌面环境的锁屏界面">
+  <meta name="author" content="Linus Boyle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Scrot+ImageMagick增强dde-lock">
+  <meta name="twitter:description" content="增强（或者说美化）deepin桌面环境的锁屏界面">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scrot+ImageMagick增强dde-lock">
+  <meta property="og:description" content="增强（或者说美化）deepin桌面环境的锁屏界面">
+  
+  <link rel="icon" type="image/png" href="http://localhost:4000/assets/images/favicon.png" >
+  <!--<link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">-->
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2018/07/custom-ddelock/">
+  <link rel="alternate" type="application/rss+xml" title="狷墨居" href="http://localhost:4000/feed.xml">
+
+  <meta name="google-site-verification" content="4oKzvLsEe8ubJtqP9L3B-m9she6kdGriOOlbckdcSW8" />
+
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="狷墨居 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="前往 狷墨居主人 的主页" class="blog-button">狷墨居</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">狷墨居主人的个人天地</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">风含翠篠娟娟净，雨裛红蕖冉冉香</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">墨学爱好者，马克思主义者，戏曲听众，C/C++程序员。</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="查看全部文章" class="blog-button">博文</a></li>
+                
+                  <li class="navigation__item"><a href="/archives"  title="文章归档">归档</a></li>
+                
+                  <li class="navigation__item"><a href="/tags"  title="文章标签索引">标签</a></li>
+                
+                  <li class="navigation__item"><a href="/AboutMe"  title="关于主人和这个小站">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://www.facebook.com/boyle.linus.5" title="@boyle.linus.5 的脸书" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">Facebook</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/linusboyle" title="@linusboyle 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- bilibili -->
+  <li class="navigation__item">
+    <a href="https://space.bilibili.com/18177890" title="@18177890 的 B站空间" target="_blank">
+      <i class="social fa fa-video-camera"></i>
+      <span class="label">Bilibili</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/106875862514148562818" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:linusboyle@gmail.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-disabled"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2018-07-11 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-11
+      </time> 
+      &#8226;
+      
+      <span class="post-meta__tags tags"><a href="/tags/#deepin">deepin</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#scrot">scrot</a></span>
+      
+      <span class="post-meta__tags tags"><a href="/tags/#linux">linux</a></span>
+      
+    </div>
+    <h1 class="post-title">Scrot+ImageMagick增强dde-lock</h1>
+  </header>
+
+
+  <section class="post">
+    <p>之前一段时间一直在用i3，不过网卡出了点问题，最近用回dde（主要是懒得注销了）。以前在i3定制的很多东西不太方便，比如动态模糊锁屏。</p>
+
+<p>其实这也不是什么难事，之前的lock脚本一样可以用，只不过和i3lock的密钥验证环相比还是dde的lock界面好一些。问题主要就是每一次启动的时候截图+模糊。</p>
+
+<p>注意本文写作使用的是deepin15.6，之后的存放位置可能会改。</p>
+
+<p>首先，dde-lock使用的图片和dde-laucher的背景图片一样，都是存放在<strong>/var/cache/image_blur/</strong>里，没错，里面有十多张预置的图片，我建议不要修改这些图片，自己先随便选一张图片，在桌面右键把它设置为锁屏图片。</p>
+
+<p>这个时候在上面说的文件夹用ls -l之类的命令找到最新添加的图片，记下它的名字，删除之。然后添加符号连接（这一步是为了避免在var目录直接操作导致的权限问题，毕竟谁也不想在锁屏的时候输密码）到/tmp里的随便一个目录。</p>
+
+<p>然后只需要一个小脚本就搞定了，我的如下（注意更改符号链接的目标）：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /bin/bash</span>
+<span class="c"># linusboyle 2018-07-11</span>
+<span class="c"># blur the screen and lock</span>
+
+<span class="nv">tmpFile</span><span class="o">=</span><span class="s2">"/tmp/dlock_img.png"</span><span class="c">#你的路径</span>
+scrot <span class="nt">-m</span> <span class="s2">"</span><span class="nv">$tmpFile</span><span class="s2">"</span> <span class="c">#不用深度截图是因为慢……而且有bug</span>
+convert <span class="s2">"</span><span class="nv">$tmpFile</span><span class="s2">"</span> <span class="nt">-blur</span> 80x5 <span class="s2">"</span><span class="nv">$tmpFile</span><span class="s2">"</span>
+dde-lock
+</code></pre></div></div>
+<p>convert 的参数非常多，你可以配置出各种风格，比如科幻风，jojo风之类的……不过这里只演示了高斯模糊（x号后面的是高斯模糊的参数，有兴趣的可以自己改来看看）。</p>
+
+<p>最后在控制中心把快捷键绑定上。按下super+l即可。</p>
+
+<p>演示：（深度录屏的gif录制失真比较严重……）
+<img src="/assets/images/2018/lockshowcase.gif" alt="showcase" /></p>
+
+<h2 id="继续折腾">继续折腾</h2>
+<p>下面的折腾可能会导致不明的问题，而且在系统升级的时候可能会被覆盖</p>
+
+<p>你可能会说，我按电源键用的还是原来的dde-lock，这让人很不爽。当然可以一次性解决这个问题，如果你愿意在待机的时候多等两秒，那就继续看下去吧。</p>
+
+<p>控制按下“锁屏”时运行程序路径的是dbus的服务配置文件，我们只需要简单+粗暴地把<code class="highlighter-rouge">/usr/share/dbus-1/services/com.deepin.dde.lockFront.service</code>里的程序改成上面的脚本就可以了。sudo vim改之，按下电源键，现在你需要在睡眠之前等上两秒……好吧，这其实并没有什么意思，玩够了之后还是找时间改回去吧:)。</p>
+
+    <div id='scroll' class='scroll'>
+    <a href="#" title='返回顶部'>
+        <i class='fa fa-arrow-up'></i>
+    </a>
+    <a href="#footer" title='前往底部'>
+        <i class='fa fa-arrow-down'></i>
+    </a>
+</div>
+
+    <blockquote>
+  <p>文章采用<a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></p>
+  <p>&copy; 2018-2019 狷墨居主人</p>
+</blockquote>
+
+  </section>
+</article>
+
+
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/Vimscript/" title="Vimscript 学习笔记">Vimscript 学习笔记</a></h2>
+       <!--<p class="excerpt">作为一个Vimer用了这么久vim，其实Vimscript一直是一知半解，从刚开始接触的时候复制别人的配置，到现在的各种需求已经无法满足。看着自己1000+行的vimrc，看来是很有简化和优化的必要，这篇文章是学习Vimscript的一些笔记。本文写作使用的vim版本:8.1.177,+gui，文中的测试都是在此之上进行的  使用技巧  非脚本特性          实用命令      选项                  格式          一些选项                ...&hellip;</p>-->
+       <p class="excerpt">这篇文章是学习Vimscript的一些笔记，涉及少量的使用技巧。主要是知识点的罗列，不涉及实战。&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-13 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-13
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">Vim Vimscript 笔记
+         </span>
+       </div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2018/07/Bittersweet-University-Life/" title="link to Bittersweet University Life">Bittersweet University Life</a></h2>
+       <!--<p class="excerpt">speech delivered on 2018-07-10At Tsinghua University for the 2018 English Summer CampBitter Life in Middle School but Sweet One In Colleage?Dear Madam,and all my classmates,On 21st of June,Chen Baosheng,Minister of Education of PRC,expressed his s...&hellip;</p>-->
+       <p class="excerpt">a very short speech I delivered in Tsinghua University.&hellip;</p>
+       <div class="post-list__meta">
+         <time datetime="2018-07-10 00:00:00 +0800" class="post-list__meta--date date">
+           2018-07-10
+         </time> &#8226; 
+         <span class="post-list__meta--tags tags">演讲 大学生活
+         </span>
+       </div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+    <div id="gitalk-container"></div>     
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '4dc42fc50d0e5228f895',
+        clientSecret: '0e6b48d493f30bbae58c9a5752d5e4bc63345a2c',
+        repo: 'linusboyle.github.io',
+        owner: 'linusboyle',
+        admin: ['linusboyle'],
+        id: 'Scrot+ImageMagick增强dde-lock',
+        labels: ['COMMENTS','GITALK'] 
+      });
+      gitalk.render('gitalk-container');
+    </script> 
+
+      
+</section>
+
+
+            <section class="footer">
+    <footer id='footer'>
+      <span class="footer__copyright"> 本站由 <a href="https://jekyllrb.com",target="_blank">Jekyll</a> 于 2019-03-04 生成,感谢<a href="https://github.com">Github</a>提供的支持 </span>
+      <span class="footer__copyright">本站
+        由
+          <a href="https://github.com/linusboyle">
+            @狷墨居主人
+          </a>
+          创建，
+        
+        采用 <a href="https://github.com/onevcat/vno-jekyll" target="_blank">Vno - Jekyll</a> 作为主题，
+        
+        您可以在此找到
+        <a href="https://github.com/linusboyle/linusboyle.github.io" target="_blank">
+          本站源码
+        </a>
+        
+      </span>
+      <span id="busuanzi_container_site_uv">
+          本站总访问人数:<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121698925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121698925-1');
+</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]}
+});
+</script>
+
+    
+  </body>
+
+</html>
