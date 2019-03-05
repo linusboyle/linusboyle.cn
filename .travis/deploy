@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
+echo "$SERVER_ADDRESS" >> ~/.ssh/known_hosts
 eval "$(ssh-agent -s)" # Start ssh-agent cache
 chmod 600 ~/.ssh/id_rsa # Allow read access to the private key
 ssh-add ~/.ssh/id_rsa # Add the private key to SSH
 
-echo "$SERVER_ADDRESS" >> ~/.ssh/known_hosts
 git config --global push.default matching
 git remote add deploy ubuntu@$SERVER_ADDRESS:~/linusboyle.cn
 git push deploy master
