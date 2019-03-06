@@ -1,29 +1,17 @@
-## Linus Boyle's Gitpage
+# linusboyle.cn
 
-This repository is the source of the blog/gitpage of Linus Boyle,you can view it [here](https://linusboyle.github.io)
+[![Build Status](https://travis-ci.com/linusboyle/linusboyle.cn.svg?branch=master)](https://travis-ci.com/linusboyle/linusboyle.cn)
 
-With many thanks to onevcat,who has made this theme.
+This repository contains the source of the blog of Linus Boyle's, you can view it [here](https://linusboyle.cn)
 
-I also add some personal setting to the theme,to make it more powerful.
+It's a static website using Jekyll and is mainly built upon onevcat's original [vno theme](https://github.com/onevcat/vno-jekyll). I made some modifications, to make it more powerful.
 
-**note:** this theme is currently under development,so to use it please change all the personal settings.
+**note:** this is not a formal Jekyll theme right now, so feel free to use it but please change all the personal settings in the config file.
 
-## 狷墨居主人的gitpage
+---
 
-这是狷墨的博客源码。感谢onevcat创作的主题，狷墨在他基础上增添了不少功能。
+# 狷墨居
 
-**注意** 本主题还在开发，并未发布，如果要使用，请将所有个人设置替换，以防止对本人网站的影响
+这是狷墨的博客源码，采用Jekyll静态生成。感谢onevcat创作的[主题](https://github.com/onevcat/vno-jekyll)，狷墨在他基础上增添了一些功能，但大体上目前改动不是很大。
 
-## 作为一个主题：
-
-我在持续不断地增强我的博客，也许有一天它会成为新的主题，到目前为止，它有如下新特性：
-- 一些细节的优化
-- 使用jekyll-feed 自动生成atom feed
-- 使用jekyll-sitemap 自动生成网站地图
-- 增加更多的社交网站入口
-- MathJax支持 可以在博客中插入数学公式了
-- 移除已经废弃的多说评论支持，加入gitalk支持
-- 移植google analytics
-- 增添归档
-- 增添标签索引页
-- 增添404页面
+**注意** 本主题并不是一个正式的Jekyll主题。欢迎任何人使用，但请将所有个人设置替换。
