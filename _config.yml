@@ -63,12 +63,6 @@ social:
     facebook: boyle.linus.5
     gplus: 106875862514148562818
     mail: linusboyle@gmail.com  
-    bilibili: 18177890
-
-# Google Analytics,采用的是gtag.js
-# 如果要启用GA，请换成自己的id，以免影响我的ga流量记录
-ga:
-    id: UA-121698925-1
 
 # 忽略的文件
 exclude:
