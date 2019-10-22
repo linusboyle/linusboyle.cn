@@ -307,7 +307,7 @@ td:last-child {
   padding: 2em 0 0 0;
   border-top: 2px solid $gray-light;
   font-size: .7em;
-  color: lighten($gray-dark, 10%);
+  color: $gray-dark;
 }
 
   .footer__copyright {
@@ -315,7 +315,7 @@ td:last-child {
     margin-bottom: .7em;
 
     a {
-      color: lighten($gray-dark, 5%);
+      color: $gray-dark;
       text-decoration: underline;
 
       &:hover {
